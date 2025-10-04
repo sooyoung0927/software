@@ -212,14 +212,14 @@ body {
   background: #fff;
 }
 .faq-mascot {
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   display: block;
   object-fit: cover;
   transform: translateY(3px);
 }
 .faq-title {
-  font-size: 36px;
+  font-size: 38px;
   line-height: 1;
   margin: 0;
   font-weight: 900;
@@ -387,5 +387,19 @@ details > summary {
   }
   .faq {
     width: 100% !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .q {
+    padding: 12px 18px 12px 16px;
+  }
+  .faq-mascot {
+    width: 60px !important;
+    height: 60px !important;
+  }
+  .faq-title {
+    font-size: 36px;
+    font-weight: 900;
   }
 }

@@ -36,6 +36,7 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   height: 100%;
+  min-height: 0;
 }
 
 .center {
@@ -181,14 +182,14 @@ body {
   background: #fff;
 }
 .faq-mascot {
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   display: block;
   object-fit: cover;
   transform: translateY(3px);
 }
 .faq-title {
-  font-size: 36px;
+  font-size: 38px;
   line-height: 1;
   margin: 0;
   font-weight: 850;
@@ -230,14 +231,14 @@ body {
 
 /* 마스코트 & 타이틀 */
 .faq-top .faq-mascot {
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   object-fit: cover;
   display: block;
   transform: translateY(3px);
 }
 .faq-top .faq-title {
-  font-size: 36px;
+  font-size: 38px;
   line-height: 1;
   margin: 0;
   font-weight: 850;
@@ -251,8 +252,16 @@ body {
   width: 100%;
   padding-inline: 20px; /* 좌우여백 */
   padding-bottom: 24px;
+  flex: 1 1 auto; /* 남은 공간 채우기 */
+  min-height: 0; /* ★ 중요: 내부 스크롤 활성화 */
+  overflow: auto; /* ★ 여기만 스크롤 */
+  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none;
 }
-
+.app-body::-webkit-scrollbar {
+  /* WebKit */
+  display: none;
+}
 .profile {
   width: 100%;
   max-width: none;
@@ -333,7 +342,7 @@ body {
 .tile-input {
   display: grid;
   place-items: center;
-  min-height: 160px;
+  /* min-height: 140px; */
   padding: 16px;
   cursor: pointer;
 }
@@ -442,6 +451,30 @@ body {
 @media (max-width: 520px) {
   .calc-row {
     grid-template-columns: 1fr;
+  }
+  .field label {
+    font-size: 17px;
+  }
+  .field input::placeholder {
+    font-size: 16px;
+  }
+  .donut {
+    width: 100px;
+    height: 100px;
+  }
+  .donut-center {
+    margin-top: 17px;
+  }
+  .tile {
+    height: 140px;
+  }
+  .faq-mascot {
+    width: 60px !important;
+    height: 60px !important;
+  }
+  .faq-title {
+    font-size: 36px;
+    font-weight: 900;
   }
 }
 

@@ -167,13 +167,13 @@ body {
   width: 100%;
 }
 .faq-mascot {
-  width: 65px;
-  height: 65px;
+  width: 70px;
+  height: 70px;
   display: block;
   object-fit: cover;
 }
 .faq-title {
-  font-size: 37px;
+  font-size: 38px;
   line-height: 1;
   margin: 0;
   font-weight: 900;
@@ -203,13 +203,13 @@ body {
 
 /* 마스코트 & 타이틀 */
 .faq-top .faq-mascot {
-  width: 65px;
-  height: 65px;
+  width: 70px;
+  height: 70px;
   object-fit: cover;
   display: block;
 }
 .faq-top .faq-title {
-  font-size: 37px;
+  font-size: 38px;
   line-height: 1;
   margin: 0;
   font-weight: 900;
@@ -336,7 +336,7 @@ body {
   position: absolute;
   left: 24px;
   right: 24px;
-  bottom: 30px;
+  bottom: 35px;
   margin: 0;
   z-index: 7;
 }
@@ -348,7 +348,7 @@ body {
   background: #fff;
   border: 1px solid #8b8d92;
   border-radius: 11px;
-  padding: 5px 12px 5px 16px;
+  padding: 10px 12px 10px 16px;
   box-shadow: 0 8px 24px rgba(15, 38, 71, 0.06);
 }
 
@@ -472,5 +472,21 @@ body {
   }
   .faq-top {
     padding-inline: 20px !important;
+  }
+}
+@media (max-width: 520px) {
+  .faq-mascot {
+    width: 60px !important;
+    height: 60px !important;
+  }
+  .faq-title {
+    font-size: 36px;
+    font-weight: 900;
+  }
+  .composer-box {
+    padding: 5px 12px 5px 16px;
+  }
+  .compser {
+    bottom: 30px;
   }
 }

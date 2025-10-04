@@ -181,14 +181,14 @@ body {
   background: #fff;
 }
 .faq-mascot {
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   display: block;
   object-fit: cover;
   transform: translateY(3px);
 }
 .faq-title {
-  font-size: 36px;
+  font-size: 38px;
   line-height: 1;
   margin: 0;
   font-weight: 850;
@@ -231,14 +231,14 @@ body {
 
 /* 마스코트 & 타이틀 */
 .faq-top .faq-mascot {
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   object-fit: cover;
   display: block;
   transform: translateY(3px);
 }
 .faq-top .faq-title {
-  font-size: 36px;
+  font-size: 38px;
   line-height: 1;
   margin: 0;
   font-weight: 850;
@@ -299,13 +299,6 @@ body {
   padding-inline: 20px;
   padding-bottom: 24px;
 }
-
-@media (max-width: 520px) {
-  .calc-row {
-    grid-template-columns: 1fr;
-  }
-}
-
 /* ===== 반응형 ===== */
 /* 모바일: 좌우 패널 숨기고 가운데만 꽉 채우기 */
 @media (max-width: 1450px) {
@@ -325,5 +318,18 @@ body {
     padding-inline: 20px !important;
     margin-bottom: 12px;
     margin-top: 15px;
+  }
+}
+@media (max-width: 520px) {
+  .faq-mascot {
+    width: 60px !important;
+    height: 60px !important;
+  }
+  .faq-title {
+    font-size: 36px;
+    font-weight: 900;
+  }
+  .calc-row {
+    grid-template-columns: 1fr;
   }
 }
