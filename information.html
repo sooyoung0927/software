@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>을지 Q&AI</title>
+    <link rel="stylesheet" href="information.css" />
+  </head>
+  <body>
+    <div class="viewport">
+      <!-- 왼쪽 -->
+      <aside class="side side-left">
+        <img class="mark" src="image/마크.png" alt="EULJI UNIVERSITY Mark" />
+        <img class="wordmark" src="image/로고.png" alt="을지대학교" />
+      </aside>
+
+      <!-- 가운데 앱 화면 -->
+      <main class="app">
+        <header class="faq-top">
+          <a href="my.html" class="back-btn" aria-label="뒤로 가기">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M15 5 L8 12 L15 19"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </a>
+          <img src="image/을랑이.png" alt="을랑이" class="faq-mascot" />
+          <h1 class="faq-title">개인 정보</h1>
+        </header>
+        <section class="app-body">
+          <form class="profile" autocomplete="off" novalidate>
+            <div class="field email-field">
+              <label for="email">로그인 이메일</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                inputmode="email"
+                placeholder="본인이 로그인 한 이메일이 뜰 예정"
+                aria-label="연동 이메일"
+                aria-readonly="true"
+                readonly
+              />
+            </div>
+
+            <div class="field">
+              <label for="name">이름</label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                placeholder="이름을 입력하세요"
+                aria-label="이름"
+              />
+            </div>
+            <div class="field">
+              <label for="department">학과 / 학부</label>
+              <input
+                id="department"
+                name="department"
+                type="text"
+                placeholder="학과 또는 학부를 입력하세요"
+                aria-label="학과/학부"
+              />
+            </div>
+            <div class="field">
+              <label for="studentId">학번</label>
+              <input
+                id="studentId"
+                name="studentId"
+                type="text"
+                placeholder="학번을 입력하세요"
+                aria-label="학번"
+              />
+            </div>
+
+            <h2 class="subhead">잔여 학점 계산기</h2>
+
+            <div class="calc-row">
+              <!-- 왼쪽 카드 터치하면 score.html -->
+              <button
+                type="button"
+                class="tile tile-input"
+                id="openScore"
+                aria-label="터치하여 수강한 과목을 입력하세요"
+              >
+                <span class="tile-title"
+                  >터치하여<br />수강한 과목을<br />입력하세요</span
+                >
+              </button>
+
+              <!-- 오른쪽 도넛 그래프 -->
+              <div class="tile tile-chart" aria-label="잔여 학점 도넛 차트">
+                <div class="donut">
+                  <span class="donut-center">
+                    <b id="earned">0</b><small> / </small><b id="total">130</b>
+                  </span>
+                </div>
+                <div class="legend">
+                  <span class="dot taken"></span> 수강 학점
+                  <span class="dot remain"></span> 잔여 학점
+                </div>
+              </div>
+            </div>
+            <div class="actions">
+              <button type="button" id="saveProfile" class="btn-primary">
+                저장하기
+              </button>
+            </div>
+          </form>
+        </section>
+      </main>
+
+      <!-- 오른쪽 -->
+      <aside class="side side-right">
+        <div class="right-inner">
+          <nav class="quick-links" aria-label="바로가기">
+            <a
+              class="ql"
+              href="https://www.eulji.ac.kr/renewal/index.html?menuno=5561"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="ql-text">학사일정 바로 가기</span>
+              <span class="circle-arrow" aria-hidden="true">→</span>
+            </a>
+            <a
+              class="ql"
+              href="https://eis.eu.ac.kr/nxui/index.html"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="ql-text">교육전산 바로 가기</span>
+              <span class="circle-arrow" aria-hidden="true">→</span>
+            </a>
+            <a
+              class="ql"
+              href="https://eulji.ac.kr/renewal/index.html?menuno=6180"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="ql-text">홈페이지 바로 가기</span>
+              <span class="circle-arrow" aria-hidden="true">→</span>
+            </a>
+          </nav>
+
+          <div class="contact">
+            <div class="contact-title">을지대 학생 지원팀</div>
+            <a class="contact-tel">성남 캠퍼스 : 031) 740-7111</a><br />
+            <a class="contact-tel">의정부 캠퍼스 : 031) 951-3614</a><br />
+            <a class="contact-tel">대전 캠퍼스 : 042) 259-1530</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+    <script src="information.js" defer></script>
+  </body>
+</html>

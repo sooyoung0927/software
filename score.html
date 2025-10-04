@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>을지 Q&AI</title>
+    <link rel="stylesheet" href="score.css" />
+  </head>
+  <body>
+    <div class="viewport">
+      <!-- 왼쪽 -->
+      <aside class="side side-left">
+        <img class="mark" src="image/마크.png" alt="EULJI UNIVERSITY Mark" />
+        <img class="wordmark" src="image/로고.png" alt="을지대학교" />
+      </aside>
+
+      <!-- 가운데 앱 화면 -->
+      <main class="app">
+        <header class="faq-top">
+          <a href="information.html" class="back-btn" aria-label="뒤로 가기">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M15 5 L8 12 L15 19"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </a>
+          <img src="image/을랑이.png" alt="을랑이" class="faq-mascot" />
+          <h1 class="faq-title">과목 입력</h1>
+        </header>
+        <div class="row header">
+          <span class="classname">과목명</span>
+          <span class="classscore">학점</span>
+        </div>
+        <section class="app-body">
+          <div class="courses">
+            <div id="rows" class="rows">
+              <!-- 초기 4행 -->
+              <div class="row">
+                <input
+                  class="subject"
+                  type="text"
+                  placeholder=""
+                  aria-label="과목명"
+                />
+                <input
+                  class="credit"
+                  type="text"
+                  inputmode="numeric"
+                  placeholder=""
+                  aria-label="학점"
+                />
+              </div>
+              <div class="row">
+                <input
+                  class="subject"
+                  type="text"
+                  placeholder=""
+                  aria-label="과목명"
+                />
+                <input
+                  class="credit"
+                  type="text"
+                  inputmode="numeric"
+                  placeholder=""
+                  aria-label="학점"
+                />
+              </div>
+              <div class="row">
+                <input
+                  class="subject"
+                  type="text"
+                  placeholder=""
+                  aria-label="과목명"
+                />
+                <input
+                  class="credit"
+                  type="text"
+                  inputmode="numeric"
+                  placeholder=""
+                  aria-label="학점"
+                />
+              </div>
+              <div class="row">
+                <input
+                  class="subject"
+                  type="text"
+                  placeholder=""
+                  aria-label="과목명"
+                />
+                <input
+                  class="credit"
+                  type="text"
+                  inputmode="numeric"
+                  placeholder=""
+                  aria-label="학점"
+                />
+              </div>
+              <div class="row">
+                <input
+                  class="subject"
+                  type="text"
+                  placeholder=""
+                  aria-label="과목명"
+                />
+                <input
+                  class="credit"
+                  type="text"
+                  inputmode="numeric"
+                  placeholder=""
+                  aria-label="학점"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- 하단 고정 바 -->
+        <div class="actions">
+          <button type="button" id="addRowBtn" class="btn ghost">
+            칸 추가하기
+          </button>
+          <button type="button" id="submitBtn" class="btn primary">
+            입력 완료
+          </button>
+        </div>
+      </main>
+
+      <!-- 오른쪽 -->
+      <aside class="side side-right">
+        <div class="right-inner">
+          <nav class="quick-links" aria-label="바로가기">
+            <a
+              class="ql"
+              href="https://www.eulji.ac.kr/renewal/index.html?menuno=5561"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="ql-text">학사일정 바로 가기</span>
+              <span class="circle-arrow" aria-hidden="true">→</span>
+            </a>
+            <a
+              class="ql"
+              href="https://eis.eu.ac.kr/nxui/index.html"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="ql-text">교육전산 바로 가기</span>
+              <span class="circle-arrow" aria-hidden="true">→</span>
+            </a>
+            <a
+              class="ql"
+              href="https://eulji.ac.kr/renewal/index.html?menuno=6180"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="ql-text">홈페이지 바로 가기</span>
+              <span class="circle-arrow" aria-hidden="true">→</span>
+            </a>
+          </nav>
+
+          <div class="contact">
+            <div class="contact-title">을지대 학생 지원팀</div>
+            <a class="contact-tel">성남 캠퍼스 : 031) 740-7111</a><br />
+            <a class="contact-tel">의정부 캠퍼스 : 031) 951-3614</a><br />
+            <a class="contact-tel">대전 캠퍼스 : 042) 259-1530</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+    <script src="score.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,374 @@
+/* ===== 기본 세팅 ===== */
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+body {
+  margin: 0;
+  background: #cce1f9;
+  color: #0f2647;
+}
+
+/* ===== 레이아웃 ===== */
+.viewport {
+  height: 100svh;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr min(100%, 490px) 1fr;
+  gap: 32px;
+  align-items: stretch;
+  padding: 0 clamp(16px, 4vw, 32px);
+}
+
+/* 가운데 폰 화면 */
+.app {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+}
+
+.center {
+  width: 100%;
+  padding: clamp(24px, 5vw, 48px) 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* 좌우 패널 */
+.side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  gap: 28px;
+}
+
+.side-left {
+  gap: 20px;
+}
+
+/* ====== 왼쪽  ====== */
+.mark {
+  width: 350px;
+  height: auto;
+  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.06));
+  margin-bottom: -4px;
+}
+.wordmark {
+  width: 230px;
+  height: auto;
+  margin-top: 0px;
+}
+
+/* ====== 오른쪽  ====== */
+.side-right {
+  align-items: stretch;
+  justify-content: center;
+  padding-inline: clamp(24px, 4vw, 48px);
+}
+
+.right-inner {
+  width: min(520px, 90%);
+  margin: 50px auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(28px, 3.2vw, 40px);
+}
+
+.quick-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(18px, 2.2vw, 24px);
+  width: 100%;
+}
+
+.ql {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 1vw, 12px);
+  padding: 0;
+  width: auto;
+  text-decoration: none;
+}
+
+.ql-text {
+  color: #143a74;
+  font-weight: 600;
+  font-size: 30px;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+.circle-arrow {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 3px solid #143a74;
+  border-radius: 50%;
+  font-size: 26px;
+  line-height: 1;
+  color: #143a74;
+}
+
+.contact {
+  width: 100%;
+  text-align: center;
+  color: #143a74;
+  user-select: text;
+}
+.contact-title {
+  font-size: clamp(18px, 1.8vw, 22px);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.contact-tel {
+  display: inline-block;
+  font-weight: 500;
+  font-size: 19px;
+  color: #143a74;
+  text-underline-offset: 4px;
+}
+
+/* ===== 가운데  ===== */
+
+.back-btn {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  font-size: 60px;
+  line-height: 1;
+  color: #000000;
+  text-decoration: none;
+  user-select: none;
+}
+.back-btn .icon {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+.faq-top {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  grid-template-columns: 25px max-content 1fr;
+  align-items: center;
+  gap: 0px;
+  column-gap: 2px;
+  padding: 16px 5px;
+  padding-inline: 20px !important;
+  margin: 15px 0 12px;
+  background: #fff;
+  align-self: stretch;
+  width: 100%;
+}
+
+.faq-mascot {
+  width: 60px;
+  height: 60px;
+  display: block;
+  object-fit: cover;
+  transform: translateY(3px);
+}
+.faq-title {
+  font-size: 39px;
+  line-height: 1;
+  margin: 0;
+  font-weight: 850;
+  color: #0f2647;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* 뒤로가기 버튼/아이콘 */
+.faq-top .back-btn {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  color: #000;
+  text-decoration: none;
+  user-select: none;
+}
+.faq-top .back-btn .icon {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+/* 마스코트 & 타이틀 */
+.faq-top .faq-mascot {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  display: block;
+  transform: translateY(3px);
+}
+.faq-top .faq-title {
+  font-size: 39px;
+  line-height: 1;
+  margin: 0;
+  font-weight: 850;
+  color: #0f2647;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* ===== 마이페이지 카드 ===== */
+.app-body {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 0 40px;
+}
+
+.mypage-card {
+  width: 100%;
+  background: #ffffff;
+  border: none;
+  border-radius: 16px;
+  padding: 0 20px 20px 20px;
+}
+
+/* 폼 레이아웃 */
+.info-form {
+  background: #f7f9fe;
+  border: 1px solid #e7ecf6;
+  border-radius: 12px;
+  padding-top: 12px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 7px;
+}
+
+.info-form .row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.info-form label {
+  font-weight: 550;
+  font-size: 18px;
+  color: #173765;
+  letter-spacing: -0.2px;
+  text-align: left;
+  padding-left: 3px;
+}
+
+.info-form input {
+  height: 45px;
+  border: 1.5px solid #cdd9f0;
+  border-radius: 8px;
+  margin-right: 3px;
+  padding-left: 5px;
+  background: #f9fbff;
+  color: #0f2647;
+  font-size: 18px;
+  width: 100%;
+}
+.info-form input::placeholder {
+  color: #697487;
+  font-size: 16px;
+}
+.info-form input[readonly] {
+  cursor: not-allowed;
+  background: #ffffff;
+}
+
+/* 정보 입력하기 버튼 */
+.primary-btn {
+  display: block;
+  margin: 15px auto 0;
+  padding: 0;
+  border-radius: 10px;
+  background: #143a74;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 17px;
+  width: 148px;
+  height: 53px;
+  line-height: 52px;
+}
+
+/* 하단 기능 버튼 */
+.action-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: -30px;
+}
+
+.action-btn {
+  /* 두 버튼 한꺼번에 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: #f7f9fe;
+  border: 1px solid #e7ecf6;
+  border-radius: 16px;
+  margin-top: 75px;
+  padding: 13px 10px;
+  text-decoration: none;
+  color: #143a74;
+  font-weight: 600;
+  height: 200;
+}
+.action-btn:hover {
+  border: 1.5px solid #143a74;
+}
+
+.action-ico {
+  width: 40px;
+  height: 40px;
+  display: block;
+}
+
+/* ===== 반응형 ===== */
+/* 모바일: 좌우 패널 숨기고 가운데만 꽉 채우기 */
+@media (max-width: 1450px) {
+  .viewport {
+    grid-template-columns: 1fr; /* 한 열 */
+    gap: 0;
+    padding: 0;
+  }
+  .side {
+    display: none;
+  }
+  .app {
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .faq-top {
+    padding-inline: 20px !important;
+  }
+  .info-form .row {
+    margin-bottom: 8px;
+  }
+}
