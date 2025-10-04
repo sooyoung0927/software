@@ -152,8 +152,8 @@ body {
 .back-btn {
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
+  width: 30px;
+  height: 30px;
   border-radius: 10px;
   font-size: 60px;
   line-height: 1;
@@ -176,7 +176,7 @@ body {
   gap: 0px;
   column-gap: 2px;
   padding: 16px 5px;
-  padding-inline: 20px !important;
+  padding-inline: 12px !important;
   margin: 15px 0 12px;
   background: #fff;
   align-self: stretch;
@@ -367,7 +367,7 @@ body {
     box-shadow: none;
   }
   .faq-top {
-    padding-inline: 20px !important;
+    padding-inline: 12px !important;
   }
   .info-form .row {
     margin-bottom: 8px;
@@ -383,7 +383,7 @@ body {
     font-weight: 900;
   }
   .info-form input::placeholder {
-    font-size: 13px;
+    font-size: 15px;
   }
   .info-form label {
     font-weight: 500;

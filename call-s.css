@@ -158,8 +158,8 @@ body {
 .back-btn {
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
+  width: 30px;
+  height: 30px;
   border-radius: 10px;
   font-size: 60px;
   line-height: 1;
@@ -182,7 +182,7 @@ body {
   gap: 0px;
   column-gap: 2px;
   padding: 16px 5px;
-  padding-inline: 20px !important;
+  padding-inline: 12px !important;
   margin-top: 15px;
   background: #fff;
   align-self: stretch;
@@ -622,7 +622,7 @@ mark.hit {
     box-shadow: none;
   }
   .faq-top {
-    padding-inline: 20px !important;
+    padding-inline: 12px !important;
     margin-top: 15px;
   }
 }

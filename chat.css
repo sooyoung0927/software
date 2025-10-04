@@ -161,6 +161,7 @@ body {
   column-gap: 2px;
   padding: 16px 40px;
   padding-right: 120px;
+  padding-inline: 12px !important;
   margin: 33px 0 30px;
   background: #fff;
   align-self: stretch;
@@ -471,7 +472,7 @@ body {
     box-shadow: none;
   }
   .faq-top {
-    padding-inline: 20px !important;
+    padding-inline: 12px !important;
   }
 }
 @media (max-width: 520px) {
