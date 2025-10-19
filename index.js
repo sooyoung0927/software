@@ -1,3 +1,11 @@
+// ===== 설정 =====
+const API_BASE = 'https://majorapp.live'; // 백엔드 베이스 URL (필요에 맞게 수정)
+const PATHS = {
+  signup: '/auth/signup', // ① 회원가입 (응답: { userId, token })
+  login: '/auth/login', // ② 로그인   (응답: { userId, token })
+  me: '/users/me', // ③ 개인정보 확인 (GET, Authorization: Bearer <token>)
+};
+
 // ===== 요소 =====
 const input = document.querySelector('.input-wrap input');
 const app = document.querySelector('.app');
@@ -6,49 +14,32 @@ const app = document.querySelector('.app');
 const err = document.createElement('p');
 err.className = 'email-error';
 err.style.cssText = `
-  margin: 0;
-  width: 100%;
-  text-align: center;
-  font-size: 14px;
-  color: #e74c3c;
-  line-height: 1.4;
-  opacity: 0;            /* 처음엔 안 보이게 */
-  visibility: hidden;    /* 공간은 따로 확보한 슬롯이 유지 */
-  transition: opacity 160ms ease;
+  margin: 0; width: 100%; text-align: center; font-size: 14px; color: #e74c3c;
+  line-height: 1.4; opacity: 0; visibility: hidden; transition: opacity 160ms ease;
 `;
 err.setAttribute('role', 'alert');
 err.setAttribute('aria-live', 'polite');
 
-// 고정 높이 슬롯(문구가 없어도 공간 유지 → 레이아웃 안 흔들림)
 const slot = document.createElement('div');
-slot.style.cssText = `
-  height: 22px;          /* 문구 한 줄 높이 */
-  margin: 6px 0 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+slot.style.cssText = `height:22px; margin:6px 0 0; display:flex; align-items:center; justify-content:center;`;
 slot.appendChild(err);
 input.closest('.input-wrap').appendChild(slot);
 
 // ===== 검증 =====
 const EMAIL_RE = /^[A-Za-z0-9._%+-]+@g\.eulji\.ac\.kr$/i;
-
-function validateEmail(v) {
-  return EMAIL_RE.test(v.trim());
-}
+const validateEmail = (v) => EMAIL_RE.test(v.trim());
 
 function showError(msg) {
   err.textContent = msg;
   err.style.visibility = 'visible';
-  err.style.opacity = '1'; // 페이드 인
+  err.style.opacity = '1';
   input.setAttribute('aria-invalid', 'true');
   input.style.borderColor = '#e74c3c';
   input.style.boxShadow = '0 0 0 4px rgba(231,76,60,.03)';
 }
 
 function clearError() {
-  err.style.opacity = '0'; // 페이드 아웃
+  err.style.opacity = '0';
   setTimeout(() => {
     err.style.visibility = 'hidden';
     err.textContent = '';
@@ -69,16 +60,11 @@ function ensureVisible(el) {
   if (needsScroll) el.scrollIntoView({ block: 'center', behavior: 'smooth' });
 }
 
-// 포커스 시: 보이게 + 에러 즉시 숨김
 input.addEventListener('focus', () => {
   clearError();
   setTimeout(() => ensureVisible(input), 150);
 });
-
-// 입력을 시작하면: 실시간 검증 없이 에러만 즉시 숨김
 input.addEventListener('input', clearError);
-
-// 키보드로 뷰포트가 줄어들 때도 보이게
 if (window.visualViewport) {
   window.visualViewport.addEventListener('resize', () => {
     const kbOverlap = Math.max(
@@ -93,17 +79,43 @@ if (window.visualViewport) {
   });
 }
 
-// 엔터로 제출
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') trySubmit();
 });
 
-// ===== 제출(백엔드 연동 지점) =====
-async function trySubmit() {
-  const value = input.value.trim();
+// ===== 공통 fetch 래퍼 =====
+async function postJSON(path, body) {
+  const res = await fetch(API_BASE + path, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  const data = await res.json().catch(() => ({}));
+  return { ok: res.ok, status: res.status, data };
+}
 
-  if (!validateEmail(value)) {
-    showError('올바른 형식의 이메일을 입력하십시오');
+async function getJSON(path, token) {
+  const res = await fetch(API_BASE + path, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  const data = await res.json().catch(() => ({}));
+  return { ok: res.ok, status: res.status, data };
+}
+
+// ===== 토큰/프로필 보관 유틸 =====
+function saveAuth({ email, userId, token, profile }) {
+  localStorage.setItem('qai_auth_email', email);
+  localStorage.setItem('qai_user_id', String(userId));
+  localStorage.setItem('qai_token', token); // 백엔드 문서에 "로그인 토큰 발급(기억해야 함)" 명시됨
+  if (profile) localStorage.setItem('qai_profile', JSON.stringify(profile));
+}
+
+// ===== 제출 흐름 =====
+async function trySubmit() {
+  const email = input.value.trim();
+
+  if (!validateEmail(email)) {
+    showError('학교 이메일(@g.eulji.ac.kr) 형식으로 입력하세요.');
     ensureVisible(input);
     return;
   }
@@ -112,16 +124,51 @@ async function trySubmit() {
   input.disabled = true;
 
   try {
-    // 실제 API 호출로 교체
-    await new Promise((r) => setTimeout(r, 300)); // 데모용 지연
+    // 1) 로그인 먼저 시도
+    let { ok, status, data } = await postJSON(PATHS.login, { email });
 
-    // 로그인 이메일 저장 (localStorage)
-    localStorage.setItem('qai_auth_email', input.value.trim());
+    // 2) 미등록 등으로 실패(예: 404/401/400) 시 회원가입 → 다시 로그인
+    if (!ok && [400, 401, 404].includes(status)) {
+      const reg = await postJSON(PATHS.signup, { email });
+      if (!reg.ok) {
+        // 이미 존재하면 409가 올 수도 있음 → 그냥 로그인 재시도
+        if (reg.status !== 409)
+          return showError(reg.data?.message || '회원가입에 실패했습니다.');
+      } else if (reg.data?.token) {
+        // 토큰 줬다면 여기서 바로 저장/프로필 조회 후 진행
+        const { userId, token } = reg.data;
+        const me = await getJSON(PATHS.me, token);
+        saveAuth({
+          email,
+          userId,
+          token,
+          profile: me.ok ? me.data : undefined,
+        });
+        return (location.href = 'chat.html');
+      }
+      // 회원가입 성공 but 토큰 없음 → 로그인 재시도
+      ({ ok, status, data } = await postJSON(PATHS.login, { email }));
+      if (!ok) return showError(data?.message || '로그인에 실패했습니다.');
+    }
 
-    // TODO(백엔드 연동 후):
-    // - 서버가 토큰/세션을 내려주면 그걸 저장
-    // - 이메일은 서버 프로필 조회로 채우도록 전환
+    // 여기 도달하면 로그인 성공: { userId, token }
+    const { userId, token } = data || {};
+    if (!token) {
+      showError('토큰이 응답에 없습니다.');
+      return;
+    }
 
+    // 3) /me로 개인정보 확인
+    const me = await getJSON(PATHS.me, token); // { id, email, name, department, studentId }
+    if (!me.ok) {
+      // 프로필 조회 실패해도 치명적이진 않으니 토큰만 저장하고 진행
+      console.warn('profile fetch failed', me);
+      saveAuth({ email, userId, token });
+    } else {
+      saveAuth({ email, userId, token, profile: me.data });
+    }
+
+    // 4) 다음 화면 이동
     location.href = 'chat.html';
   } catch (e) {
     console.error(e);

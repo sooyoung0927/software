@@ -20,19 +20,21 @@ body {
   overflow: hidden;
   display: grid;
   grid-template-columns: 1fr min(100%, 490px) 1fr;
-  gap: 32px;
+  gap: 0px;
   align-items: stretch;
   padding: 0 clamp(16px, 4vw, 32px);
 }
 
 /* 가운데 폰 화면 */
 .app {
+  width: min(100%, 400px);
   background: #fff;
   border-radius: 18px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   overflow: hidden;
   display: flex;
   align-items: center;
+  justify-self: center;
   justify-content: center;
   height: 100%;
 }
@@ -107,18 +109,51 @@ body {
 
 /* 왼쪽 - 마크/로고 */
 .mark {
-  width: 350px;
+  width: 300px;
   height: auto;
   filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.06));
   margin-bottom: -4px;
 }
 .wordmark {
-  width: 230px;
+  width: 190px;
   height: auto;
   margin-top: 0px;
 }
 
 /* 오른쪽 - 카드 */
+/* 링크 행 */
+.ql {
+  position: relative; /* z-index 기준 */
+  display: flex;
+  align-items: center;
+  gap: 12px; /* 필요시 조절 */
+  overflow: visible; /* 글자가 밖으로 나가도 가리지 않음 */
+}
+
+/* 글자: 한 줄 고정 + 위 레이어 */
+.ql-text {
+  position: relative;
+  z-index: 2; /* 화살표보다 위 */
+  white-space: nowrap; /* 줄넘김 금지 */
+  word-break: keep-all; /* 한국어 임의 줄바꿈 방지 */
+  overflow-wrap: normal; /* 단어 강제 개행 방지 */
+  flex: 0 0 auto; /* 줄어들며 꺾이지 않게 고정폭 */
+}
+
+/* 화살표: 뒤 레이어 */
+.circle-arrow {
+  position: relative;
+  z-index: 1; /* 텍스트 뒤 */
+  flex: 0 0 auto; /* 크기 고정 */
+  margin-left: 8px; /* 간격 원하면 조절 */
+  pointer-events: none; /* 겹쳐도 클릭 방해 X (선택) */
+}
+
+/* 행들이 들어가는 컨테이너도 가리지 않게 */
+.quick-links {
+  overflow: visible;
+}
+
 .info-card {
   width: min(420px, 100%);
   background: #e7f1ff;
@@ -150,7 +185,8 @@ body {
 
 .info-box.list,
 .info-box.how {
-  height: 210px;
+  height: 190px;
+  width: 350px;
 }
 
 .kicker-out {
@@ -219,7 +255,10 @@ body {
 
 /* ===== 반응형 ===== */
 /* 모바일: 좌우 패널 숨기고 가운데만 꽉 채우기 */
-@media (max-width: 1400px) {
+@media (max-width: 1200px) {
+  body {
+    background: #fff; /* 흰 배경으로 꽉 차게 */
+  }
   .viewport {
     grid-template-columns: 1fr; /* 한 열 */
     gap: 0;
@@ -229,7 +268,12 @@ body {
     display: none;
   }
   .app {
+    width: 100%; /* 중앙 화면 풀폭 */
+    height: 100%;
     border-radius: 0;
     box-shadow: none;
+  }
+  .center {
+    padding: 24px; /* 모바일 패딩만 유지 */
   }
 }

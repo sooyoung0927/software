@@ -27,12 +27,14 @@ body {
 
 /* 가운데 폰 화면 */
 .app {
+  width: min(100%, 400px);
   background: #fff;
   border-radius: 18px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   overflow: hidden;
   display: flex;
   align-items: center;
+  justify-self: center;
   flex-direction: column;
   justify-content: flex-start;
   height: 100%;
@@ -63,18 +65,51 @@ body {
 
 /* ====== 왼쪽  ====== */
 .mark {
-  width: 350px;
+  width: 300px;
   height: auto;
   filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.06));
   margin-bottom: -4px;
 }
 .wordmark {
-  width: 230px;
+  width: 190px;
   height: auto;
   margin-top: 0px;
 }
 
 /* ====== 오른쪽  ====== */
+/* 링크 행 */
+.ql {
+  position: relative; /* z-index 기준 */
+  display: flex;
+  align-items: center;
+  gap: 12px; /* 필요시 조절 */
+  overflow: visible; /* 글자가 밖으로 나가도 가리지 않음 */
+}
+
+/* 글자: 한 줄 고정 + 위 레이어 */
+.ql-text {
+  position: relative;
+  z-index: 2; /* 화살표보다 위 */
+  white-space: nowrap; /* 줄넘김 금지 */
+  word-break: keep-all; /* 한국어 임의 줄바꿈 방지 */
+  overflow-wrap: normal; /* 단어 강제 개행 방지 */
+  flex: 0 0 auto; /* 줄어들며 꺾이지 않게 고정폭 */
+}
+
+/* 화살표: 뒤 레이어 */
+.circle-arrow {
+  position: relative;
+  z-index: 1; /* 텍스트 뒤 */
+  flex: 0 0 auto; /* 크기 고정 */
+  margin-left: 8px; /* 간격 원하면 조절 */
+  pointer-events: none; /* 겹쳐도 클릭 방해 X (선택) */
+}
+
+/* 행들이 들어가는 컨테이너도 가리지 않게 */
+.quick-links {
+  overflow: visible;
+}
+
 .side-right {
   align-items: stretch;
   justify-content: center;
@@ -111,7 +146,7 @@ body {
 .ql-text {
   color: #143a74;
   font-weight: 600;
-  font-size: 30px;
+  font-size: 25px;
   text-decoration: underline;
   text-underline-offset: 6px;
 }
@@ -142,7 +177,7 @@ body {
 .contact-tel {
   display: inline-block;
   font-weight: 500;
-  font-size: 19px;
+  font-size: 17px;
   color: #143a74;
   text-underline-offset: 4px;
 }
@@ -177,22 +212,21 @@ body {
   column-gap: 2px;
   padding: 16px 5px;
   padding-inline: 12px !important;
-  margin: 15px 0 12px;
+  margin: 25px 0 12px;
   background: #fff;
   align-self: stretch;
   width: 100%;
 }
 
 .faq-mascot {
-  width: 70px;
-  height: 70px;
+  width: 60px !important;
+  height: 60px !important;
   display: block;
   object-fit: cover;
   transform: translateY(3px);
 }
 .faq-title {
-  font-size: 38px;
-  line-height: 1;
+  font-size: 34px !important;
   margin: 0;
   font-weight: 850;
   color: #0f2647;
@@ -227,7 +261,6 @@ body {
 }
 .faq-top .faq-title {
   font-size: 38px;
-  line-height: 1;
   margin: 0;
   font-weight: 850;
   color: #0f2647;
@@ -267,12 +300,12 @@ body {
   grid-template-columns: 110px 1fr;
   gap: 0px;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .info-form label {
   font-weight: 600;
-  font-size: 18px;
+  font-size: 16px;
   color: #173765;
   letter-spacing: -0.2px;
   text-align: left;
@@ -280,19 +313,19 @@ body {
 }
 
 .info-form input {
-  height: 45px;
+  height: 40px;
   border: 1.5px solid #cdd9f0;
   border-radius: 8px;
   margin-right: 3px;
-  padding-left: 5px;
+  padding-left: 10px;
   background: #f9fbff;
   color: #0f2647;
-  font-size: 18px;
+  font-size: 15px;
   width: 100%;
 }
 .info-form input::placeholder {
   color: #697487;
-  font-size: 15px;
+  font-size: 13.5px;
 }
 .info-form input[readonly] {
   cursor: not-allowed;
@@ -310,9 +343,9 @@ body {
   text-align: center;
   text-decoration: none;
   font-weight: 500;
-  font-size: 17px;
-  width: 148px;
-  height: 53px;
+  font-size: 16px;
+  width: 145px;
+  height: 47px;
   margin-bottom: 30px;
   line-height: 52px;
 }
@@ -339,6 +372,7 @@ body {
   text-decoration: none;
   color: #143a74;
   font-weight: 600;
+  font-size: 15px;
   height: 200;
 }
 .action-btn:hover {
@@ -346,14 +380,14 @@ body {
 }
 
 .action-ico {
-  width: 40px;
-  height: 40px;
+  width: 37px;
+  height: 37px;
   display: block;
 }
 
 /* ===== 반응형 ===== */
 /* 모바일: 좌우 패널 숨기고 가운데만 꽉 채우기 */
-@media (max-width: 1450px) {
+@media (max-width: 1200px) {
   .viewport {
     grid-template-columns: 1fr; /* 한 열 */
     gap: 0;
@@ -373,6 +407,28 @@ body {
     margin-bottom: 8px;
   }
 }
+@media (max-width: 1200px) {
+  body {
+    background: #fff; /* 흰 배경으로 꽉 차게 */
+  }
+  .viewport {
+    grid-template-columns: 1fr; /* 한 열 */
+    gap: 0;
+    padding: 0;
+  }
+  .side {
+    display: none;
+  }
+  .app {
+    width: 100%; /* 중앙 화면 풀폭 */
+    height: 100%;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .center {
+    padding: 24px; /* 모바일 패딩만 유지 */
+  }
+}
 @media (max-width: 520px) {
   .faq-mascot {
     width: 60px !important;
@@ -380,7 +436,7 @@ body {
   }
   .faq-title {
     font-size: 36px;
-    font-weight: 900;
+    font-weight: 1000;
   }
   .info-form input::placeholder {
     font-size: 15px;

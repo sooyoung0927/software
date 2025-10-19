@@ -27,6 +27,7 @@ body {
 
 /* 가운데 폰 화면 */
 .app {
+  width: min(100%, 400px);
   background: #fff;
   border-radius: 18px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
@@ -35,6 +36,7 @@ body {
   align-items: center;
   flex-direction: column;
   justify-content: flex-start;
+  justify-self: center;
   height: 100%;
   position: relative;
 }
@@ -64,18 +66,51 @@ body {
 
 /* ====== 왼쪽  ====== */
 .mark {
-  width: 350px;
+  width: 300px;
   height: auto;
   filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.06));
   margin-bottom: -4px;
 }
 .wordmark {
-  width: 230px;
+  width: 190px;
   height: auto;
   margin-top: 0px;
 }
 
 /* ====== 오른쪽  ====== */
+/* 링크 행 */
+.ql {
+  position: relative; /* z-index 기준 */
+  display: flex;
+  align-items: center;
+  gap: 12px; /* 필요시 조절 */
+  overflow: visible; /* 글자가 밖으로 나가도 가리지 않음 */
+}
+
+/* 글자: 한 줄 고정 + 위 레이어 */
+.ql-text {
+  position: relative;
+  z-index: 2; /* 화살표보다 위 */
+  white-space: nowrap; /* 줄넘김 금지 */
+  word-break: keep-all; /* 한국어 임의 줄바꿈 방지 */
+  overflow-wrap: normal; /* 단어 강제 개행 방지 */
+  flex: 0 0 auto; /* 줄어들며 꺾이지 않게 고정폭 */
+}
+
+/* 화살표: 뒤 레이어 */
+.circle-arrow {
+  position: relative;
+  z-index: 1; /* 텍스트 뒤 */
+  flex: 0 0 auto; /* 크기 고정 */
+  margin-left: 8px; /* 간격 원하면 조절 */
+  pointer-events: none; /* 겹쳐도 클릭 방해 X (선택) */
+}
+
+/* 행들이 들어가는 컨테이너도 가리지 않게 */
+.quick-links {
+  overflow: visible;
+}
+
 .side-right {
   align-items: stretch;
   justify-content: center;
@@ -112,7 +147,7 @@ body {
 .ql-text {
   color: #143a74;
   font-weight: 600;
-  font-size: 30px;
+  font-size: 25px;
   text-decoration: underline;
   text-underline-offset: 6px;
 }
@@ -142,7 +177,7 @@ body {
 }
 .contact-tel {
   display: inline-block;
-  font-size: 19px;
+  font-size: 17px;
   color: #143a74;
   font-weight: 500;
   text-underline-offset: 4px;
@@ -162,20 +197,19 @@ body {
   padding: 16px 40px;
   padding-right: 120px;
   padding-inline: 12px !important;
-  margin: 33px 0 30px;
+  margin: 30px 10px 30px;
   background: #fff;
   align-self: stretch;
   width: 100%;
 }
 .faq-mascot {
-  width: 70px;
-  height: 70px;
+  width: 60px !important;
+  height: 60px !important;
   display: block;
   object-fit: cover;
 }
 .faq-title {
-  font-size: 38px;
-  line-height: 1;
+  font-size: 34px !important;
   margin: 0;
   font-weight: 900;
   color: #0f2647;
@@ -211,7 +245,6 @@ body {
 }
 .faq-top .faq-title {
   font-size: 38px;
-  line-height: 1;
   margin: 0;
   font-weight: 900;
   color: #0f2647;
@@ -323,7 +356,7 @@ body {
 .profile-btn:hover::after,
 .profile-btn:focus-visible::after {
   opacity: 1;
-  transform: translateX(-50%) translateY(0);
+  transform: translateX(-60%) translateY(0);
 }
 
 .app-body {
@@ -346,11 +379,11 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+  height: 55px;
   background: #fff;
   border: 1px solid #8b8d92;
   border-radius: 11px;
   padding: 10px 12px 10px 16px;
-  box-shadow: 0 8px 24px rgba(15, 38, 71, 0.06);
 }
 
 /* 멀티라인 자동늘어남 느낌의 텍스트영역 */
@@ -361,6 +394,7 @@ body {
   outline: none;
   min-height: 24px;
   color: #8b8d92;
+  font-size: 15px !important;
   overflow: auto;
   scrollbar-width: none;
   font: 16px/1.35 system-ui, -apple-system, Segoe UI, Roboto,
@@ -375,8 +409,8 @@ body {
 /* 보내기 버튼 */
 .send-btn {
   flex: none;
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   border: 0;
   background: #eef3ff;
@@ -458,7 +492,7 @@ body {
 
 /* ===== 반응형 ===== */
 /* 모바일: 좌우 패널 숨기고 가운데만 꽉 채우기 */
-@media (max-width: 1450px) {
+@media (max-width: 1200px) {
   .viewport {
     grid-template-columns: 1fr; /* 한 열 */
     gap: 0;
@@ -475,6 +509,36 @@ body {
     padding-inline: 12px !important;
   }
 }
+@media (max-width: 1200px) {
+  body {
+    background: #fff; /* 흰 배경으로 꽉 차게 */
+  }
+  .viewport {
+    grid-template-columns: 1fr; /* 한 열 */
+    gap: 0;
+    padding: 0;
+  }
+  .side {
+    display: none;
+  }
+  .app {
+    width: 100%; /* 중앙 화면 풀폭 */
+    height: 100%;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .center {
+    padding: 24px; /* 모바일 패딩만 유지 */
+  }
+  .profile-btn:hover::after,
+  .profile-btn:focus-visible::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  .profile-btn {
+    right: 3.5%;
+  }
+}
 @media (max-width: 520px) {
   .faq-mascot {
     width: 60px !important;
@@ -482,12 +546,23 @@ body {
   }
   .faq-title {
     font-size: 36px;
-    font-weight: 900;
+    font-weight: 1000;
   }
   .composer-box {
     padding: 5px 12px 5px 16px;
   }
   .compser {
     bottom: 30px;
+  }
+  .profile-btn {
+    right: 5%;
+  }
+  .help-btn:hover::after,
+  .help-btn:focus-visible::after {
+    top: calc(100% + 5px); /* 기준 요소의 아래 바깥 */
+    left: 50%;
+    bottom: auto;
+    right: auto;
+    transform: translate(-50%, 0);
   }
 }
