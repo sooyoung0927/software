@@ -255,7 +255,7 @@ body {
 .profile-btn {
   position: absolute;
   display: grid;
-  right: 5%;
+  right: 6%;
   top: 24%;
   place-items: center;
   width: 50px;
