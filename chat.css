@@ -19,7 +19,7 @@ body {
   height: 100svh;
   overflow: hidden;
   display: grid;
-  grid-template-columns: 1fr min(100%, 490px) 1fr;
+  grid-template-columns: 1fr 570px 1fr;
   gap: 32px;
   align-items: stretch;
   padding: 0 clamp(16px, 4vw, 32px);
@@ -27,7 +27,8 @@ body {
 
 /* 가운데 폰 화면 */
 .app {
-  width: min(100%, 400px);
+  width: 570px;
+  max-width: none;
   background: #fff;
   border-radius: 18px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
@@ -66,13 +67,13 @@ body {
 
 /* ====== 왼쪽  ====== */
 .mark {
-  width: 300px;
+  width: 400px;
   height: auto;
   filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.06));
   margin-bottom: -4px;
 }
 .wordmark {
-  width: 190px;
+  width: 220px;
   height: auto;
   margin-top: 0px;
 }
@@ -501,28 +502,16 @@ body {
   .side {
     display: none;
   }
-  .app {
-    border-radius: 0;
-    box-shadow: none;
-  }
+
   .faq-top {
     padding-inline: 12px !important;
   }
-}
-@media (max-width: 1200px) {
   body {
     background: #fff; /* 흰 배경으로 꽉 차게 */
   }
-  .viewport {
-    grid-template-columns: 1fr; /* 한 열 */
-    gap: 0;
-    padding: 0;
-  }
-  .side {
-    display: none;
-  }
+
   .app {
-    width: 100%; /* 중앙 화면 풀폭 */
+    width: 480px; /* 중앙 화면 풀폭 */
     height: 100%;
     border-radius: 0;
     box-shadow: none;
