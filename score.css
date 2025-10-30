@@ -19,7 +19,7 @@ body {
   height: 100svh;
   overflow: hidden;
   display: grid;
-  grid-template-columns: 1fr 550px 1fr;
+  grid-template-columns: 1fr 520px 1fr;
   gap: 32px;
   align-items: stretch;
   padding: 0 clamp(16px, 4vw, 32px);
@@ -27,7 +27,7 @@ body {
 
 /* 가운데 폰 화면 */
 .app {
-  width: 550px;
+  width: 520px;
   background: #fff;
   border-radius: 18px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
@@ -66,13 +66,13 @@ body {
 
 /* ====== 왼쪽  ====== */
 .mark {
-  width: 400px;
+  width: 440px;
   height: auto;
   filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.06));
-  margin-bottom: -4px;
+  margin-bottom: 10px;
 }
 .wordmark {
-  width: 220px;
+  width: 270px;
   height: auto;
   margin-top: 0px;
 }
@@ -132,6 +132,7 @@ body {
   align-items: center;
   gap: clamp(18px, 2.2vw, 24px);
   width: 100%;
+  margin-bottom: 25px;
 }
 
 .ql {
@@ -147,7 +148,7 @@ body {
 .ql-text {
   color: #143a74;
   font-weight: 600;
-  font-size: 25px;
+  font-size: 38px;
   text-decoration: underline;
   text-underline-offset: 6px;
 }
@@ -155,11 +156,11 @@ body {
 .circle-arrow {
   display: inline-grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
-  border: 3px solid #143a74;
+  width: 45px;
+  height: 45px;
+  border: 4px solid #143a74;
   border-radius: 50%;
-  font-size: 26px;
+  font-size: 30px;
   line-height: 1;
   color: #143a74;
 }
@@ -171,18 +172,17 @@ body {
   user-select: text;
 }
 .contact-title {
-  font-size: clamp(18px, 1.8vw, 22px);
+  font-size: 29px;
   font-weight: 700;
   margin-bottom: 6px;
 }
 .contact-tel {
   display: inline-block;
-  font-size: 17px;
-  font-weight: 500;
+  font-size: 25px;
   color: #143a74;
+  font-weight: 500;
   text-underline-offset: 4px;
 }
-
 /* ===== 가운데  ===== */
 
 .back-btn {
@@ -501,7 +501,7 @@ body {
     display: none;
   }
   .app {
-    width: 550px; /* 중앙 화면 풀폭 */
+    width: 520px; /* 중앙 화면 풀폭 */
     height: 100%;
     border-radius: 0;
     box-shadow: none;
