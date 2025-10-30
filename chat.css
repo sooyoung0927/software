@@ -19,7 +19,7 @@ body {
   height: 100svh;
   overflow: hidden;
   display: grid;
-  grid-template-columns: 1fr 570px 1fr;
+  grid-template-columns: 1fr 550px 1fr;
   gap: 32px;
   align-items: stretch;
   padding: 0 clamp(16px, 4vw, 32px);
@@ -27,7 +27,7 @@ body {
 
 /* 가운데 폰 화면 */
 .app {
-  width: 570px;
+  width: 550px;
   max-width: none;
   background: #fff;
   border-radius: 18px;

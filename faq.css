@@ -36,12 +36,12 @@ body {
   gap: 32px;
   align-items: stretch;
   padding: 0 clamp(16px, 4vw, 32px);
-  grid-template-columns: 1fr 570px 1fr;
+  grid-template-columns: 1fr 550px 1fr;
 }
 
 /* 가운데 폰 화면 */
 .app {
-  width: 570px !important;
+  width: 550px !important;
   background: #fff;
   border-radius: 18px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
