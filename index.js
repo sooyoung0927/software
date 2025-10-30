@@ -178,6 +178,7 @@
 //   }
 // }
 // ===== 요소 =====
+// ===== 요소 =====
 const input = document.querySelector('.input-wrap input');
 const app = document.querySelector('.app');
 
@@ -197,9 +198,7 @@ slot.appendChild(err);
 input.closest('.input-wrap').appendChild(slot);
 
 // ===== 이메일 검증 (일반 이메일 형식 허용) =====
-// 필요하면 학교 도메인으로 바꾸려면 아래 정규식을 EMAIL_RE_SCHOOL로 교체하면 됨.
 const EMAIL_RE_ANY = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const EMAIL_RE_SCHOOL = /^[A-Za-z0-9._%+-]+@g\.eulji\.ac\.kr$/i;
 const validateEmail = (v) => EMAIL_RE_ANY.test(v.trim());
 
 function showError(msg) {
@@ -254,7 +253,7 @@ if (window.visualViewport) {
 }
 
 // ===== 제출 핸들러 =====
-async function trySubmit() {
+function trySubmit() {
   const email = input.value.trim();
 
   if (!validateEmail(email)) {
@@ -263,10 +262,22 @@ async function trySubmit() {
     return;
   }
 
-  // 성공: 이메일을 저장(선택)하고 바로 이동
+  // ✅ 개발용: 토큰/유저/프로필 더미 저장 → chat.html 가드 통과
   try {
     localStorage.setItem('qai_auth_email', email);
+    localStorage.setItem('qai_token', '__dev_token__'); // chat.html에서 이 키를 검사할 확률이 높음
+    localStorage.setItem('qai_user_id', '0');
+    // 혹시 프로필을 참조하면 대비
+    const dummyProfile = {
+      id: 0,
+      email,
+      name: 'Guest',
+      department: 'N/A',
+      studentId: 'N/A',
+    };
+    localStorage.setItem('qai_profile', JSON.stringify(dummyProfile));
   } catch (_) {}
+
   location.href = 'chat.html';
 }
 
@@ -275,5 +286,11 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') trySubmit();
 });
 
-// 버튼이 있다면(예: .next-btn) 클릭으로도 제출 (없으면 무시)
+// 폼 기본 제출 막고 JS로 처리
+document.querySelector('form')?.addEventListener('submit', (e) => {
+  e.preventDefault();
+  trySubmit();
+});
+
+// 버튼 클릭으로도 제출 (버튼이 있을 때만)
 document.querySelector('.next-btn')?.addEventListener('click', trySubmit);
