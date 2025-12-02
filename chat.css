@@ -34,9 +34,9 @@ body {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   overflow: hidden;
   display: flex;
-  align-items: center;
-  flex-direction: column;
+  flex-direction: column; /* 🔸 세로 배치 */
   justify-content: flex-start;
+  align-items: stretch;
   justify-self: center;
   height: 100%;
   position: relative;
@@ -362,18 +362,15 @@ body {
 }
 
 .app-body {
+  flex: 1 1 auto; /* 🔸 헤더와 입력창 사이 전체 차지 */
   align-self: stretch;
   width: 100%;
-  flex: 1;
-  overflow: auto;
-  padding: 0 24px 110px; /* 하단 입력창 공간 */
+  overflow-y: auto; /* 🔸 여기가 스크롤 */
+  padding: 0 24px 16px; /* 🔸 더 이상 110px 필요 없음 */
 }
 .composer {
-  position: absolute;
-  left: 24px;
-  right: 24px;
-  bottom: 35px;
-  margin: 0;
+  position: static;
+  margin: 0 24px 24px;
   z-index: 7;
 }
 
@@ -395,7 +392,7 @@ body {
   border: 0;
   outline: none;
   min-height: 24px;
-  color: #8b8d92;
+  color: #0b0b0c;
   font-size: 15px !important;
   overflow: auto;
   scrollbar-width: none;
@@ -451,10 +448,9 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 0 24px 110px; /* 하단 입력창 피하기 */
-  align-self: stretch;
+  padding: 0 24px 40px !important;
+  padding: 0;
   width: 100%;
-  overflow: auto;
 }
 
 /* 기본 말풍선 */
@@ -465,6 +461,8 @@ body {
   line-height: 1.45;
   word-break: break-word;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  white-space: pre-line;
+  font-size: 15px;
 }
 
 /* 사용자 말풍선: 오른쪽 정렬 */
@@ -480,7 +478,70 @@ body {
   background: var(--ai-bubble);
   border-top-left-radius: 6px; /* 말풍선 모서리 차별화(선택) */
 }
+/* === AI 타이핑 인디케이터 === */
+.msg.ai.typing {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+}
 
+.msg.ai.typing .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #9aa4b5;
+  animation: typingWave 1s infinite ease-in-out;
+  opacity: 0.4;
+}
+
+.msg.ai.typing .dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.msg.ai.typing .dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes typingWave {
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  40% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+/* 점 3개 */
+.typing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #8b8d92;
+  animation: typing-bounce 1s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.typing-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes typing-bounce {
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  40% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
 /* 모바일(좌우 패널 숨김 상태)에서도 여백 유지 */
 @media (max-width: 1450px) {
   .composer {
@@ -488,47 +549,38 @@ body {
     right: clamp(16px, 5vw, 24px);
   }
   .app-body {
-    padding: 0 clamp(16px, 5vw, 24px) 110px;
+    padding: 0 clamp(16px, 5vw, 24px) 16px; /* ✅ 110px → 16px 정도로 */
   }
 }
 
 /* ===== 반응형 ===== */
 /* 모바일: 좌우 패널 숨기고 가운데만 꽉 채우기 */
+
 @media (max-width: 1200px) {
-  .viewport {
-    grid-template-columns: 1fr; /* 한 열 */
-    gap: 0;
-    padding: 0;
-  }
-  .side {
-    display: none;
+  body {
+    background: #fff;
   }
 
-  .faq-top {
-    padding-inline: 12px !important;
+  .viewport {
+    display: block; /* grid 대신 블록 한 줄 */
+    padding: 0;
+    margin: 0;
   }
-  body {
-    background: #fff; /* 흰 배경으로 꽉 차게 */
+
+  .side {
+    display: none; /* 좌우 패널 숨기기 */
   }
 
   .app {
-    width: 480px; /* 중앙 화면 풀폭 */
+    width: 100vw; /* 화면 전체 폭 사용 */
+    max-width: none;
     height: 100%;
     border-radius: 0;
     box-shadow: none;
-  }
-  .center {
-    padding: 24px; /* 모바일 패딩만 유지 */
-  }
-  .profile-btn:hover::after,
-  .profile-btn:focus-visible::after {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-  .profile-btn {
-    right: 3.5%;
+    margin: 0 auto;
   }
 }
+
 @media (max-width: 520px) {
   .faq-mascot {
     width: 60px !important;
@@ -538,21 +590,7 @@ body {
     font-size: 36px;
     font-weight: 1000;
   }
-  .composer-box {
-    padding: 5px 12px 5px 16px;
-  }
-  .compser {
-    bottom: 30px;
-  }
-  .profile-btn {
-    right: 5%;
-  }
-  .help-btn:hover::after,
-  .help-btn:focus-visible::after {
-    top: calc(100% + 5px); /* 기준 요소의 아래 바깥 */
-    left: 50%;
-    bottom: auto;
-    right: auto;
-    transform: translate(-50%, 0);
+  .calc-row {
+    grid-template-columns: 1fr;
   }
 }

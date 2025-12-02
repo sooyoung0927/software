@@ -338,6 +338,7 @@ body {
   border: 1px solid #e8eef9;
   border-radius: 12px;
   background: #f9fbff;
+  cursor: pointer;
 }
 .rec-role {
   font-weight: 700;
@@ -349,10 +350,52 @@ body {
 }
 .rec-time {
   color: #6b7a90;
-  font-size: 12px;
+  font-size: 13px;
   margin-top: 4px;
 }
+.rec-main {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
 
+/* 사용자 텍스트 */
+.rec-user-text {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* BOT 답변 영역: 기본은 숨김 */
+.rec-bot {
+  display: none;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed #dde3f7;
+}
+
+/* 카드에 .open이 붙었을 때 BOT 답변 보이기 */
+.rec-item.open .rec-bot {
+  display: block;
+}
+
+/* BOT 라벨 & 텍스트 스타일 */
+.rec-bot-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #4a5f8f;
+  margin-bottom: 3px;
+}
+
+.rec-bot-text {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.rec-bot-time {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #6b7a90;
+}
 @media (max-width: 520px) {
   .calc-row {
     grid-template-columns: 1fr;
@@ -370,44 +413,30 @@ body {
 /* ===== 반응형 ===== */
 /* 모바일: 좌우 패널 숨기고 가운데만 꽉 채우기 */
 @media (max-width: 1200px) {
-  .viewport {
-    grid-template-columns: 1fr; /* 한 열 */
-    gap: 0;
-    padding: 0;
-  }
-  .side {
-    display: none;
-  }
-  .app {
-    border-radius: 0;
-    box-shadow: none;
-  }
-  .faq-top {
-    padding-inline: 12px !important;
-  }
-}
-@media (max-width: 1200px) {
   body {
-    background: #fff; /* 흰 배경으로 꽉 차게 */
+    background: #fff;
   }
+
   .viewport {
-    grid-template-columns: 1fr; /* 한 열 */
-    gap: 0;
+    display: block; /* grid 대신 블록 한 줄 */
     padding: 0;
+    margin: 0;
   }
+
   .side {
-    display: none;
+    display: none; /* 좌우 패널 숨기기 */
   }
+
   .app {
-    width: 520px; /* 중앙 화면 풀폭 */
+    width: 100vw; /* 화면 전체 폭 사용 */
+    max-width: none;
     height: 100%;
     border-radius: 0;
     box-shadow: none;
-  }
-  .center {
-    padding: 24px; /* 모바일 패딩만 유지 */
+    margin: 0 auto;
   }
 }
+
 @media (max-width: 520px) {
   .faq-mascot {
     width: 60px !important;
@@ -415,5 +444,9 @@ body {
   }
   .faq-title {
     font-size: 36px;
+    font-weight: 1000;
+  }
+  .calc-row {
+    grid-template-columns: 1fr;
   }
 }

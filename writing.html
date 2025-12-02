@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>을지 Q&AI</title>
+    <link rel="stylesheet" href="writing.css" />
+  </head>
+  <body>
+    <div class="viewport">
+      <!-- 왼쪽 -->
+      <aside class="side side-left">
+        <img class="mark" src="image/마크.png" alt="EULJI UNIVERSITY Mark" />
+        <img class="wordmark" src="image/로고.png" alt="을지대학교" />
+      </aside>
+
+      <!-- 가운데 앱 화면 -->
+      <main class="app">
+        <header class="faq-top">
+          <a href="my.html" class="back-btn" aria-label="뒤로 가기">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M15 5 L8 12 L15 19"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </a>
+          <img src="image/을랑이.png" alt="을랑이" class="faq-mascot" />
+          <h1 class="faq-title">자기소개서 작성</h1>
+        </header>
+        <section class="app-body writing-body">
+          <div class="writing-card">
+            <!-- 인트로 -->
+            <p class="writing-intro">
+              자기소개서는 누가 대신 써주는 것이 아닌,<br />
+              본인의 경험과 진심이 담겨야하는 글입니다. <br /><br />이 페이지는
+              그런 자기소개서를 직접 작성할 수 있도록,<br />필요한 참고자료를
+              모아 안내하는 공간입니다.<br /><br />
+              취업 포털, AI 문장 교정 도구, 학교-취업지원 서비스 등,<br />자기소개서의
+              기반이 되는 정보를 정리해두었으니<br />당신의 경험을 더 명확하고
+              효과적으로 정리하는데 활용해보세요.
+            </p>
+
+            <!-- 블록 1: 취업 포털 자소서 -->
+            <section class="writing-block">
+              <h2 class="writing-block-title">취업 포털</h2>
+              <p class="writing-block-caption">
+                [채용 공고랑 같이 보기 좋은 자소서 작성 사이트]
+              </p>
+              <div class="writing-btn-row">
+                <a
+                  href="https://www.work.go.kr"
+                  target="_blank"
+                  rel="noopener"
+                  class="pill-btn"
+                  >워크넷</a
+                >
+                <a
+                  href="https://www.saramin.co.kr"
+                  target="_blank"
+                  rel="noopener"
+                  class="pill-btn"
+                  >사람인</a
+                >
+                <a
+                  href="https://www.jobkorea.co.kr"
+                  target="_blank"
+                  rel="noopener"
+                  class="pill-btn"
+                  >잡코리아</a
+                >
+              </div>
+            </section>
+
+            <!-- 블록 2: AI · 문장 다듬기 -->
+            <section class="writing-block">
+              <h2 class="writing-block-title">AI · 문장 다듬기</h2>
+              <p class="writing-block-caption">
+                [작성한 자기소개서를 다듬도록 돕는 사이트]
+              </p>
+              <div class="writing-btn-row">
+                <!-- AI 문장 교정 -->
+                <a
+                  href="https://wordvice.ai/ko/tools/korean-grammar-checker"
+                  target="_blank"
+                  rel="noopener"
+                  class="pill-btn"
+                >
+                  AI 문장 교정
+                </a>
+
+                <!-- AI 자소서 코치 -->
+                <a
+                  href="https://www.saramin.co.kr/zf_user/member/ai-cover-letter"
+                  target="_blank"
+                  rel="noopener"
+                  class="pill-btn"
+                >
+                  AI 자소서 코치
+                </a>
+              </div>
+            </section>
+
+            <!-- 블록 3: 학교 · 취업지원 -->
+            <section class="writing-block">
+              <h2 class="writing-block-title">학교 · 취업지원</h2>
+              <p class="writing-block-caption">
+                [첨삭이나 진로 상담을 위한 학교 취업지원 서비스]
+              </p>
+              <div class="writing-btn-row">
+                <a
+                  href="https://job.eulji.ac.kr/renewal/index.html?menuno=4017"
+                  target="_blank"
+                  rel="noopener"
+                  class="pill-btn"
+                  >을지대 취업·경력개발</a
+                >
+                <a
+                  href="https://www.saramin.co.kr/"
+                  target="_blank"
+                  rel="noopener"
+                  class="pill-btn"
+                >
+                  채용 공고 모아보기
+                </a>
+              </div>
+            </section>
+
+            <!-- 체크리스트: 체크박스 + 저장 -->
+            <section class="writing-checklist">
+              <h2 class="checklist-title">자기소개서 작성 CheckList</h2>
+              <ul class="checklist-list">
+                <li>
+                  <label>
+                    <input
+                      type="checkbox"
+                      class="check-item"
+                      data-check-id="match-job"
+                    />
+                    <span>지원 직무랑 가장 잘 맞는 경험을 골랐는지</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input
+                      type="checkbox"
+                      class="check-item"
+                      data-check-id="car"
+                    />
+                    <span>경험 → 내가 한 일 → 결과 순서로 썼는지</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input
+                      type="checkbox"
+                      class="check-item"
+                      data-check-id="numbers"
+                    />
+                    <span
+                      >숫자(기간, %, 인원 등)로 조금이라도 구체화했는지</span
+                    >
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input
+                      type="checkbox"
+                      class="check-item"
+                      data-check-id="fit-question"
+                    />
+                    <span>질문 의도에 맞게 내 경험과 강점을 연결했는지</span>
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <input
+                      type="checkbox"
+                      class="check-item"
+                      data-check-id="typo"
+                    />
+                    <span
+                      >맞춤법·띄어쓰기 / 어색한 표현을 한 번 더 확인했는지</span
+                    >
+                  </label>
+                </li>
+              </ul>
+            </section>
+          </div>
+        </section>
+      </main>
+      <!-- 오른쪽 -->
+      <aside class="side side-right">
+        <div class="right-inner">
+          <nav class="quick-links" aria-label="바로가기">
+            <a
+              class="ql"
+              href="https://www.eulji.ac.kr/renewal/index.html?menuno=5561"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="ql-text">학사일정 바로 가기</span>
+              <span class="circle-arrow" aria-hidden="true">→</span>
+            </a>
+            <a
+              class="ql"
+              href="https://eis.eu.ac.kr/nxui/index.html"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="ql-text">교육전산 바로 가기</span>
+              <span class="circle-arrow" aria-hidden="true">→</span>
+            </a>
+            <a
+              class="ql"
+              href="https://eulji.ac.kr/renewal/index.html?menuno=6180"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="ql-text">홈페이지 바로 가기</span>
+              <span class="circle-arrow" aria-hidden="true">→</span>
+            </a>
+          </nav>
+
+          <div class="contact">
+            <div class="contact-title">을지대 학생 지원팀</div>
+            <a class="contact-tel">성남 캠퍼스 : 031) 740-7111</a><br />
+            <a class="contact-tel">의정부 캠퍼스 : 031) 951-3614</a><br />
+            <a class="contact-tel">대전 캠퍼스 : 042) 259-1530</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+    <script src="writing.js" defer></script>
+  </body>
+</html>

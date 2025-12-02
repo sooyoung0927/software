@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>을지 Q&AI</title>
+    <link rel="stylesheet" href="curri.css" />
+  </head>
+  <body>
+    <div class="viewport">
+      <!-- 왼쪽 -->
+      <aside class="side side-left">
+        <img class="mark" src="image/마크.png" alt="EULJI UNIVERSITY Mark" />
+        <img class="wordmark" src="image/로고.png" alt="을지대학교" />
+      </aside>
+
+      <!-- 가운데 앱 화면 -->
+      <main class="app">
+        <header class="faq-top">
+          <a href="my.html" class="back-btn" aria-label="뒤로 가기">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M15 5 L8 12 L15 19"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </a>
+          <img src="image/을랑이.png" alt="을랑이" class="faq-mascot" />
+          <h1 class="faq-title">커리큘럼 보기</h1>
+        </header>
+        <section class="app-body">
+          <div class="curri-card">
+            <!-- 여기 메시지가 들어갈 곳 -->
+            <p id="curri-message" class="curri-message">
+              <!-- 자바스크립트에서 내용 채워 넣을 거라 처음엔 비워둠 -->
+            </p>
+
+            <!-- 나중에 실제 커리큘럼 넣고 싶을 때 쓸 영역 -->
+            <div id="curri-content" class="curri-content" hidden>
+              <!-- 예: 표나 리스트 들어갈 자리 -->
+            </div>
+          </div>
+        </section>
+      </main>
+      <!-- 오른쪽 -->
+      <aside class="side side-right">
+        <div class="right-inner">
+          <nav class="quick-links" aria-label="바로가기">
+            <a
+              class="ql"
+              href="https://www.eulji.ac.kr/renewal/index.html?menuno=5561"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="ql-text">학사일정 바로 가기</span>
+              <span class="circle-arrow" aria-hidden="true">→</span>
+            </a>
+            <a
+              class="ql"
+              href="https://eis.eu.ac.kr/nxui/index.html"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="ql-text">교육전산 바로 가기</span>
+              <span class="circle-arrow" aria-hidden="true">→</span>
+            </a>
+            <a
+              class="ql"
+              href="https://eulji.ac.kr/renewal/index.html?menuno=6180"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="ql-text">홈페이지 바로 가기</span>
+              <span class="circle-arrow" aria-hidden="true">→</span>
+            </a>
+          </nav>
+
+          <div class="contact">
+            <div class="contact-title">을지대 학생 지원팀</div>
+            <a class="contact-tel">성남 캠퍼스 : 031) 740-7111</a><br />
+            <a class="contact-tel">의정부 캠퍼스 : 031) 951-3614</a><br />
+            <a class="contact-tel">대전 캠퍼스 : 042) 259-1530</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+    <script src="curri.js" defer></script>
+  </body>
+</html>

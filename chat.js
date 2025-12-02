@@ -11,6 +11,23 @@
   const messages = document.getElementById('messages');
   if (!form || !input || !messages) return;
 
+  // ===== 대화 로그 localStorage 저장 =====
+  const LOG_KEY = 'qai_chat_log';
+
+  function saveLog(role, text) {
+    const trimmed = (text || '').trim();
+    if (!trimmed) return;
+    const now = new Date().toISOString();
+
+    const arr = JSON.parse(localStorage.getItem(LOG_KEY) || '[]');
+    arr.push({
+      role, // 'USER' 또는 'BOT'
+      text: trimmed, // 내용
+      createdAt: now, // ISO 문자열
+    });
+    localStorage.setItem(LOG_KEY, JSON.stringify(arr));
+  }
+
   // ===== 인증 토큰 =====
   const token = localStorage.getItem('qai_token');
   if (!token) {
@@ -19,11 +36,75 @@
     return;
   }
 
-  // ===== 현재 대화 ID (재방문 시 이어붙이려면 localStorage에 저장) =====
+  // ===== 현재 대화 ID / 메시지 저장 키 =====
   let convId = localStorage.getItem('qai_conv_id') || null;
+  let msgStoreKey = convId ? `qai_chat_messages_${convId}` : null;
+  let history = [];
 
-  // 공통 헤더
   const authHeaders = { Authorization: `Bearer ${token}` };
+
+  function updateMsgStoreKey() {
+    if (convId) {
+      msgStoreKey = `qai_chat_messages_${convId}`;
+    }
+  }
+
+  function saveHistory() {
+    if (!msgStoreKey) return;
+    try {
+      localStorage.setItem(msgStoreKey, JSON.stringify(history));
+    } catch (e) {
+      console.error('채팅 저장 실패:', e);
+    }
+  }
+
+  function loadHistory() {
+    if (!msgStoreKey) return;
+    try {
+      const raw = localStorage.getItem(msgStoreKey);
+      if (!raw) return;
+      const stored = JSON.parse(raw);
+      if (!Array.isArray(stored)) return;
+      history = stored;
+      stored.forEach((m) => {
+        addMessage(m.role, m.text, { save: false });
+      });
+      messages.scrollTop = messages.scrollHeight;
+    } catch (e) {
+      console.error('채팅 불러오기 실패:', e);
+    }
+  }
+
+  // 말풍선 DOM 추가 (옵션: 저장 여부)
+  function addMessage(role, text, opts = {}) {
+    const { save = true } = opts;
+    const el = document.createElement('div');
+    el.className = `msg ${role}`;
+    el.textContent = text;
+    messages.appendChild(el);
+    messages.scrollTop = messages.scrollHeight;
+
+    if (save) {
+      history.push({ role, text });
+      saveHistory();
+    }
+    return el;
+  }
+
+  function addTypingMessage() {
+    const el = document.createElement('div');
+    el.className = 'msg ai typing';
+
+    for (let i = 0; i < 3; i++) {
+      const dot = document.createElement('span');
+      dot.className = 'typing-dot';
+      el.appendChild(dot);
+    }
+
+    messages.appendChild(el);
+    messages.scrollTop = messages.scrollHeight;
+    return el;
+  }
 
   // 대화 시작(없으면 생성)
   async function ensureConversation() {
@@ -32,7 +113,7 @@
     const res = await fetch(API_BASE + PATHS.start, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', ...authHeaders },
-      body: JSON.stringify({}), // 사양상 본문 불필요하면 빈 객체
+      body: JSON.stringify({}),
     });
 
     if (res.status === 401) {
@@ -48,6 +129,9 @@
     const data = await res.json(); // { convId: "..." }
     convId = data.convId;
     localStorage.setItem('qai_conv_id', convId);
+    updateMsgStoreKey();
+    // 새 대화는 비어 있으니 loadHistory()는 큰 의미 없지만, 안전상 한 번 호출
+    loadHistory();
     return convId;
   }
 
@@ -57,7 +141,7 @@
     const res = await fetch(API_BASE + PATHS.send(id), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', ...authHeaders },
-      body: JSON.stringify({ text }), // 사진 예시와 동일 {"text":"안녕!"}
+      body: JSON.stringify({ text }),
     });
 
     if (res.status === 401) {
@@ -71,20 +155,13 @@
       throw new Error(errJson.message || '메세지 전송 실패');
     }
 
-    // 응답 예시:
-    // { "id": 6, "role":"BOT", "text":"안녕하세요! ...", "createdAt":"..." }
     const data = await res.json();
     return data.text ?? '';
   }
 
-  // 말풍선 DOM 추가
-  function addMessage(role, text) {
-    const el = document.createElement('div');
-    el.className = `msg ${role}`;
-    el.textContent = text;
-    messages.appendChild(el);
-    messages.scrollTop = messages.scrollHeight;
-    return el;
+  // 실제 API 호출 래퍼
+  async function callAI(userText) {
+    return await sendMessage(userText);
   }
 
   // textarea 자동 높이
@@ -118,21 +195,9 @@
     }
   });
 
-  // 실제 API 호출 래퍼 (기존 callAI 대체)
-  async function callAI(userText) {
-    // 필요 시: 최초 진입 때 과거 conv 이어붙이고 싶으면 아래처럼 목록 조회 후 마지막 conv 선택
-    // if (!convId) {
-    //   const r = await fetch(API_BASE + PATHS.list, { headers: authHeaders });
-    //   if (r.ok) {
-    //     const arr = await r.json(); // [{id, createdAt}]
-    //     if (Array.isArray(arr) && arr.length) {
-    //       convId = arr[arr.length - 1].id;
-    //       localStorage.setItem('qai_conv_id', convId);
-    //     }
-    //   }
-    // }
-    return await sendMessage(userText);
-  }
+  // ===== 페이지 로드 시 기존 대화 복원 =====
+  updateMsgStoreKey();
+  loadHistory();
 
   // 전송 핸들러
   form.addEventListener('submit', async (e) => {
@@ -140,21 +205,38 @@
     const text = (input.value || '').trim();
     if (!text) return;
 
+    // 1) 화면에 사용자 말풍선 추가
     addMessage('user', text);
+    // 2) localStorage에 USER 로그 저장
+    saveLog('USER', text);
+
     input.value = '';
     autoGrow();
 
-    const thinkingEl = addMessage('ai', '…');
+    // 3) AI 생각 중 말풍선 (...)
+    // 3) AI 생각 중 말풍선 (점 세 개 파도 애니메이션)
+    const typingEl = addTypingMessage();
     form
       .querySelector('button[type="submit"]')
       ?.setAttribute('disabled', 'true');
 
     try {
       const reply = await callAI(text);
-      thinkingEl.textContent = reply || '응답이 비어있어.';
+      const finalText = reply || '응답이 비어있어.';
+
+      // 타이핑 말풍선 제거
+      typingEl.remove();
+
+      // 실제 BOT 말풍선 추가 + history 저장
+      addMessage('ai', finalText);
+      saveLog('BOT', finalText);
     } catch (err) {
       console.error(err);
-      thinkingEl.textContent = '오류가 발생했어. 잠시 후 다시 시도해줘.';
+      const errMsg = '오류가 발생했어.\n잠시 후 다시 시도해줘.';
+
+      typingEl.remove();
+      addMessage('ai', errMsg);
+      saveLog('BOT', errMsg);
     } finally {
       form.querySelector('button[type="submit"]')?.removeAttribute('disabled');
     }

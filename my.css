@@ -379,57 +379,49 @@ body {
 .action-btn:hover {
   border: 1.5px solid #143a74;
 }
-
+.action-btn:nth-child(3),
+.action-btn:nth-child(4) {
+  margin-top: 4px;
+}
 .action-ico {
-  width: 37px;
-  height: 37px;
+  width: 39px;
+  height: 39px;
   display: block;
+  margin-bottom: -2px;
+}
+.action-grid .action-btn:first-child .action-ico {
+  width: 48px;
+  height: 48px;
+  margin-bottom: -10px;
 }
 
 /* ===== 반응형 ===== */
 /* 모바일: 좌우 패널 숨기고 가운데만 꽉 채우기 */
 @media (max-width: 1200px) {
-  .viewport {
-    grid-template-columns: 1fr; /* 한 열 */
-    gap: 0;
-    padding: 0;
-  }
-  .side {
-    display: none;
-  }
-  .app {
-    border-radius: 0;
-    box-shadow: none;
-  }
-  .faq-top {
-    padding-inline: 12px !important;
-  }
-  .info-form .row {
-    margin-bottom: 8px;
-  }
-}
-@media (max-width: 1200px) {
   body {
-    background: #fff; /* 흰 배경으로 꽉 차게 */
+    background: #fff;
   }
+
   .viewport {
-    grid-template-columns: 1fr; /* 한 열 */
-    gap: 0;
+    display: block; /* grid 대신 블록 한 줄 */
     padding: 0;
+    margin: 0;
   }
+
   .side {
-    display: none;
+    display: none; /* 좌우 패널 숨기기 */
   }
+
   .app {
-    width: 520px; /* 중앙 화면 풀폭 */
+    width: 100vw; /* 화면 전체 폭 사용 */
+    max-width: none;
     height: 100%;
     border-radius: 0;
     box-shadow: none;
-  }
-  .center {
-    padding: 24px; /* 모바일 패딩만 유지 */
+    margin: 0 auto;
   }
 }
+
 @media (max-width: 520px) {
   .faq-mascot {
     width: 60px !important;
