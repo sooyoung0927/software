@@ -205,8 +205,8 @@ body {
   width: 100%;
 }
 .faq-mascot {
-  width: 60px !important;
-  height: 60px !important;
+  width: 75px !important;
+  height: 75px !important;
   display: block;
   object-fit: cover;
 }
@@ -240,8 +240,8 @@ body {
 
 /* 마스코트 & 타이틀 */
 .faq-top .faq-mascot {
-  width: 85px !important;
-  height: 85px !important;
+  width: 75px !important;
+  height: 75px !important;
   object-fit: cover;
   display: block;
 }
@@ -583,8 +583,8 @@ body {
 
 @media (max-width: 520px) {
   .faq-mascot {
-    width: 60px !important;
-    height: 60px !important;
+    width: 75px !important;
+    height: 75px !important;
   }
   .faq-title {
     font-size: 36px;

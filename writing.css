@@ -307,7 +307,7 @@ body {
 
 /* 각 블록 */
 .writing-block {
-  padding: 28px 0;
+  padding: 15px 0;
   margin: 0;
 }
 
@@ -367,14 +367,14 @@ body {
 /* 체크리스트 */
 .writing-checklist {
   margin-top: 4px;
-  padding: 10px 12px 8px;
+  padding: 0px 12px 8px;
   border-radius: 12px;
   background: #f7f9fe;
   border: 1px solid #e3e9f7;
 }
 
 .checklist-title {
-  margin: 20px 0 10px;
+  margin: 10px 0 10px;
   font-size: 15px;
   font-weight: 700;
   color: #173765;
