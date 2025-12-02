@@ -331,7 +331,7 @@ body {
 }
 
 .writing-block-caption {
-  margin: 0 0 10px;
+  margin: 0 0 6px;
   font-size: 14px;
   color: #4a5670;
 }
@@ -348,7 +348,7 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 7px 14px;
+  padding: 5px 14px;
   border-radius: 999px;
   border: 1px solid #143a74;
   background: #143a74;
@@ -366,10 +366,10 @@ body {
 
 /* 체크리스트 */
 .writing-checklist {
-  margin-top: 4px;
-  padding: 0px 12px 8px;
+  margin-top: 0px;
+  padding: 0px 12px 0px;
   border-radius: 12px;
-  background: #f7f9fe;
+  background: #1d53db;
   border: 1px solid #e3e9f7;
 }
 
@@ -387,7 +387,7 @@ body {
 }
 /* 체크리스트 박스 자체는 지금처럼 */
 .writing-checklist {
-  padding: 10px 0 8px; /* 위에서 border-top 넣어서 내부 패딩만 */
+  padding: 5px 0 5px !important;
   background: transparent; /* 필요 없으면 배경 없애도 됨 */
   border: none; /* 바깥 테두리도 빼고 선만 사용 */
 }
