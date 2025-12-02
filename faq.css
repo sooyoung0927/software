@@ -314,7 +314,7 @@ body {
   margin: 0;
   box-sizing: border-box;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 14.5px;
   text-align: left;
   color: #0f2647;
 }
@@ -343,7 +343,7 @@ body {
   background: #ffffff;
   overflow-wrap: break-word;
   word-break: break-word;
-  font-size: 13px;
+  font-size: 14px;
 }
 .a-prefix {
   margin: 0 0 6px 0;
