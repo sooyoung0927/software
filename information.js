@@ -1,4 +1,4 @@
-// information.js — 이메일별 로컬스토리지 + 서버 저장 (수정판)
+// information.js — 이메일별 로컬스토리지 전용 버전
 
 // ===== 0) 초기: 로그인 이메일을 이메일 인풋에 주입 =====
 document.addEventListener('DOMContentLoaded', () => {
@@ -25,10 +25,9 @@ const PROFILE_KEY_SUFFIX = 'profile'; // 프로필 객체 {name, department, stu
 const EARNED_KEY_SUFFIX = 'earnedCredits'; // 수강 학점 합계
 const TOTAL_KEY_SUFFIX = 'totalCredits'; // 총 필요 학점
 
-// 백엔드 엔드포인트
-const API_BASE = ''; // 예: 'https://majorapp.live'
-const SAVE_PROFILE_URL = API_BASE + '/api/profile';
+// (백엔드 관련 상수 제거)
 
+// DOM 헬퍼
 const $ = (sel) => document.querySelector(sel);
 const emailEl = $('#email');
 const nameEl = $('#name');
@@ -93,7 +92,7 @@ function toast(msg) {
 }
 
 // ===== 2) 초기화 =====
-async function init() {
+function init() {
   // 이메일 표시(읽기전용)
   const email = currentEmail();
   if (emailEl) {
@@ -131,55 +130,34 @@ async function init() {
     location.href = 'score.html';
   });
 
-  // 저장하기 → 서버 전송 + 로컬 저장
-  document
-    .getElementById('saveProfile')
-    ?.addEventListener('click', async () => {
-      const payload = {
-        email,
-        name: (nameEl?.value || '').trim(),
-        department: (departmentEl?.value || '').trim(),
-        studentId: (sidEl?.value || '').trim(),
-        ...getCurrentCredits(), // { earned, total }
-      };
+  // 저장하기 → 로컬 저장만
+  document.getElementById('saveProfile')?.addEventListener('click', () => {
+    const payload = {
+      email,
+      name: (nameEl?.value || '').trim(),
+      department: (departmentEl?.value || '').trim(),
+      studentId: (sidEl?.value || '').trim(),
+      ...getCurrentCredits(), // { earned, total }
+    };
 
-      if (!payload.email) return toast('로그인 이메일이 없습니다.');
-      if (!payload.name) return toast('이름을 입력해 주세요.');
-      if (!payload.department) return toast('학과/학부를 입력해 주세요.');
-      if (!payload.studentId) return toast('학번을 입력해 주세요.');
+    if (!payload.email) return toast('로그인 이메일이 없습니다.');
+    if (!payload.name) return toast('이름을 입력해 주세요.');
+    if (!payload.department) return toast('학과/학부를 입력해 주세요.');
+    if (!payload.studentId) return toast('학번을 입력해 주세요.');
 
-      // 로컬 저장(이메일별)
-      saveLocalProfile({
-        name: payload.name,
-        department: payload.department,
-        studentId: payload.studentId,
-        earned: payload.earned,
-        total: payload.total,
-      });
-      saveEarnedTotal(payload.earned, payload.total);
-
-      // 서버로 전송
-      try {
-        const res = await fetch(SAVE_PROFILE_URL || '/api/profile', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email: payload.email,
-            name: payload.name,
-            department: payload.department,
-            studentId: payload.studentId,
-            earnedCredits: payload.earned,
-            totalCredits: payload.total,
-          }),
-        });
-        if (!res.ok) throw new Error(await res.text());
-        toast('저장 완료!');
-      } catch (e) {
-        console.error(e);
-        toast('저장 실패. 잠시 후 다시 시도해 주세요.');
-      }
-      location.href = 'my.html';
+    // 로컬 저장(이메일별)
+    saveLocalProfile({
+      name: payload.name,
+      department: payload.department,
+      studentId: payload.studentId,
+      earned: payload.earned,
+      total: payload.total,
     });
+    saveEarnedTotal(payload.earned, payload.total);
+
+    toast('저장되었습니다!');
+    location.href = 'my.html';
+  });
 }
 
 init();

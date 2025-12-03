@@ -280,7 +280,7 @@ body {
 /* ===== 커리큘럼 카드 ===== */
 .curri-card {
   width: 100%;
-  max-width: 480px;
+  /* max-width: 480px; */
   background: #ffffff;
   border-radius: 16px;
   padding: 20px 20px 24px;
@@ -302,6 +302,162 @@ body {
 /* 실제 커리큘럼 내용(나중용) */
 .curri-content {
   margin-top: 12px;
+}
+
+/* === 의료IT 커리큘럼 버튼 === */
+.curri-btn-list {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 15px;
+  margin: -5px 0 0px;
+  width: 100%;
+}
+
+.curri-btn {
+  width: 100%;
+  height: 70px;
+  max-width: none;
+  padding: 16px 20px;
+  border: none;
+  border-radius: 12px;
+  background: #f7f9fe;
+  color: #0e2a55;
+  font-size: 17px;
+  font-weight: 600;
+  text-decoration: underline;
+  border: 1px solid #e7ecf6;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+.curri-btn:hover {
+  border: 1.5px solid #143a74;
+}
+
+.curri-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* ===== 전공 상세 화면 ===== */
+
+/* 상단 큰 박스 (배경: #f7f9fe, 글자: #0e2a55) */
+.curri-head {
+  background: #f7f9fe;
+  color: #0e2a55;
+  border-radius: 18px;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.curri-head-title {
+  font-size: 17px;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* 왼쪽 위 화살표 */
+.curri-head-back {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  font-size: 17px;
+  color: #0e2a55;
+  cursor: pointer;
+}
+
+/* 아래 내용 영역 */
+.curri-detail-body {
+  margin-top: 30px;
+}
+
+/* 가로 줄들 */
+.curri-line {
+  height: 1px;
+  background: #d8dce9;
+  margin: 32px 0;
+}
+
+/* 과목 두 개 나란히 */
+.subject-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px 32px;
+  align-items: center;
+}
+
+/* 과목 박스 */
+.subject-item {
+  display: inline-flex;
+  align-items: center;
+  background: #f7f9fe;
+  border-radius: 4px;
+  border: 1px solid #c4d4eb;
+  padding: 6px 14px 6px 6px;
+  color: #0e2a55;
+  font-size: 13px;
+  flex: 0 0 auto;
+}
+
+/* 왼쪽 동그라미(학점) */
+.subject-credit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid #0e2a55;
+  background: #ffffff;
+  font-size: 12.5px;
+  margin-right: 8px;
+}
+
+.subject-name {
+  white-space: nowrap;
+}
+
+/* 커리큘럼 블록 간 여백 */
+.curri-block {
+  margin: 32px 0;
+}
+
+/* 한 블록 안에서 여러 줄일 때 줄 사이 간격 */
+.curri-block .subject-row + .subject-row {
+  margin-top: 14px;
+}
+
+/* 뒤로가기 버튼 */
+.curri-head-back {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  color: #0e2a55;
+  cursor: pointer;
+}
+
+/* SVG 아이콘 크기 */
+.curri-head-back .icon {
+  width: 19px;
+  height: 19px;
+  display: block;
 }
 
 /* ===== 반응형 ===== */

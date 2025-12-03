@@ -6,12 +6,14 @@
     list: '/api/chat/conversations', // GET  -> [{ id, createdAt }, ...]
   };
 
+  const ONE_HOUR_MS = 60 * 60 * 1000; // ★ 1시간 기준
+
   const form = document.getElementById('composer');
   const input = document.getElementById('composerInput');
   const messages = document.getElementById('messages');
   if (!form || !input || !messages) return;
 
-  // ===== 대화 로그 localStorage 저장 =====
+  // ===== 대화 로그 localStorage 저장 (대화기록 보기용) =====
   const LOG_KEY = 'qai_chat_log';
 
   function saveLog(role, text) {
@@ -22,7 +24,7 @@
     const arr = JSON.parse(localStorage.getItem(LOG_KEY) || '[]');
     arr.push({
       role, // 'USER' 또는 'BOT'
-      text: trimmed, // 내용
+      text: trimmed,
       createdAt: now, // ISO 문자열
     });
     localStorage.setItem(LOG_KEY, JSON.stringify(arr));
@@ -39,6 +41,7 @@
   // ===== 현재 대화 ID / 메시지 저장 키 =====
   let convId = localStorage.getItem('qai_conv_id') || null;
   let msgStoreKey = convId ? `qai_chat_messages_${convId}` : null;
+  // history 구조를 { role, text, createdAt } 로 변경
   let history = [];
 
   const authHeaders = { Authorization: `Bearer ${token}` };
@@ -65,29 +68,62 @@
       if (!raw) return;
       const stored = JSON.parse(raw);
       if (!Array.isArray(stored)) return;
+
       history = stored;
+
+      const now = Date.now();
+
       stored.forEach((m) => {
-        addMessage(m.role, m.text, { save: false });
+        if (!m || !m.text) return;
+
+        // ★ createdAt 없는 옛날 데이터는 "시간 정보 없음" → 화면에는 안 보여줌
+        if (!m.createdAt) return;
+
+        const createdTime = new Date(m.createdAt).getTime();
+        if (Number.isNaN(createdTime)) return;
+
+        // ★ 1시간 이내의 메시지만 화면에 렌더링
+        if (now - createdTime <= ONE_HOUR_MS) {
+          addMessage(m.role, m.text, { save: false, createdAt: m.createdAt });
+        }
       });
+
       messages.scrollTop = messages.scrollHeight;
     } catch (e) {
       console.error('채팅 불러오기 실패:', e);
     }
   }
 
-  // 말풍선 DOM 추가 (옵션: 저장 여부)
+  // 말풍선 DOM 추가 (opts: { save, createdAt })
   function addMessage(role, text, opts = {}) {
-    const { save = true } = opts;
+    const {
+      save = true,
+      createdAt = new Date().toISOString(), // ★ 기본값: 지금 시간
+    } = opts;
+
     const el = document.createElement('div');
     el.className = `msg ${role}`;
     el.textContent = text;
+    el.dataset.createdAt = createdAt; // 혹시 나중에 필요하면 쓸 수 있게 저장
     messages.appendChild(el);
     messages.scrollTop = messages.scrollHeight;
 
     if (save) {
-      history.push({ role, text });
+      history.push({ role, text, createdAt });
       saveHistory();
     }
+
+    // ★ 1시간 지나면 화면에서만 제거 (localStorage에서는 유지)
+    const createdTime = new Date(createdAt).getTime();
+    if (!Number.isNaN(createdTime)) {
+      const delay = Math.max(0, createdTime + ONE_HOUR_MS - Date.now());
+      setTimeout(() => {
+        if (el.isConnected) {
+          el.remove();
+        }
+      }, delay);
+    }
+
     return el;
   }
 
@@ -130,7 +166,6 @@
     convId = data.convId;
     localStorage.setItem('qai_conv_id', convId);
     updateMsgStoreKey();
-    // 새 대화는 비어 있으니 loadHistory()는 큰 의미 없지만, 안전상 한 번 호출
     loadHistory();
     return convId;
   }
@@ -205,15 +240,17 @@
     const text = (input.value || '').trim();
     if (!text) return;
 
-    // 1) 화면에 사용자 말풍선 추가
-    addMessage('user', text);
-    // 2) localStorage에 USER 로그 저장
+    const nowIso = new Date().toISOString();
+
+    // 1) 화면에 사용자 말풍선 추가 (createdAt 포함)
+    addMessage('user', text, { createdAt: nowIso });
+
+    // 2) localStorage에 USER 로그 저장 (대화기록 보기용)
     saveLog('USER', text);
 
     input.value = '';
     autoGrow();
 
-    // 3) AI 생각 중 말풍선 (...)
     // 3) AI 생각 중 말풍선 (점 세 개 파도 애니메이션)
     const typingEl = addTypingMessage();
     form
@@ -228,14 +265,16 @@
       typingEl.remove();
 
       // 실제 BOT 말풍선 추가 + history 저장
-      addMessage('ai', finalText);
+      const botCreatedAt = new Date().toISOString();
+      addMessage('ai', finalText, { createdAt: botCreatedAt });
       saveLog('BOT', finalText);
     } catch (err) {
       console.error(err);
       const errMsg = '오류가 발생했어.\n잠시 후 다시 시도해줘.';
 
       typingEl.remove();
-      addMessage('ai', errMsg);
+      const errCreatedAt = new Date().toISOString();
+      addMessage('ai', errMsg, { createdAt: errCreatedAt });
       saveLog('BOT', errMsg);
     } finally {
       form.querySelector('button[type="submit"]')?.removeAttribute('disabled');
