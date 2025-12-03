@@ -154,7 +154,6 @@
     // 살짝 딜레이 (타이핑 효과 보이게)
     await new Promise((res) => setTimeout(res, 600));
 
-    // 1) "안녕"
     if (
       norm === '안녕' ||
       norm === '안녕하세요' ||
@@ -167,7 +166,6 @@
       };
     }
 
-    // 2) 내년 수강신청 언제야?  (수강신청 + 내년 / 2026 포함)
     if (
       norm.includes('수강신청') &&
       (norm.includes('내년') || norm.includes('2026'))
@@ -181,7 +179,6 @@
       };
     }
 
-    // 3) EIS 비밀번호 문의
     if (
       normUpper.includes('EIS') &&
       (norm.includes('비번') ||

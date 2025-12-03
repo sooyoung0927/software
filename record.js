@@ -1,6 +1,14 @@
 (() => {
-  // ===== 채팅 로그가 저장된 localStorage 키 =====
-  const LOG_KEY = 'qai_chat_log';
+  // ===== 로그인 이메일별로 다른 로그 키 사용 =====
+  const AUTH_EMAIL_KEY = 'qai_auth_email';
+  const currentEmail = () =>
+    (localStorage.getItem(AUTH_EMAIL_KEY) || '').trim().toLowerCase();
+
+  const email = currentEmail();
+
+  // ✅ 이메일별로 다른 로그 키
+  //   -> chat.js에서도 saveLog 할 때 이 규칙(qai_chat_log_이메일)으로 저장해야 함
+  const LOG_KEY = email ? `qai_chat_log_${email}` : 'qai_chat_log_guest'; // 이메일 없으면 guest
 
   const appBody = document.querySelector('.app-body');
   if (!appBody) return;
@@ -76,7 +84,7 @@
 
   // ===== 화면 렌더링용: USER + BOT 묶기 =====
   function groupByUserBot(items) {
-    // 시간 순으로 정렬 (혹시라도 섞여 있을 경우 대비)
+    // 시간 순 정렬
     const sorted = [...items].sort(
       (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
     );
@@ -85,7 +93,7 @@
     for (let i = 0; i < sorted.length; i++) {
       const msg = sorted[i];
 
-      // 사용자 메시지일 때만 하나의 "카드"로 만든다
+      // USER 메시지 기준으로 카드 하나 만들기
       if (msg.role === 'USER') {
         const user = msg;
         let bot = null;
@@ -99,6 +107,7 @@
         groups.push({ user, bot });
       }
     }
+    // 최근 것이 위로 오게 역순
     return groups.reverse();
   }
 
@@ -143,7 +152,7 @@
       main.appendChild(userText);
       main.appendChild(userTime);
 
-      // ===== BOT 답변 영역 (처음엔 숨김) =====
+      // ===== BOT 답변 영역 =====
       const botWrap = document.createElement('div');
       botWrap.className = 'rec-bot';
 
@@ -170,7 +179,6 @@
         botWrap.appendChild(botText);
         botWrap.appendChild(botTime);
       } else {
-        // 혹시 BOT이 없는 경우
         botWrap.appendChild(document.createTextNode('BOT 응답이 없습니다.'));
       }
 
