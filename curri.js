@@ -151,9 +151,8 @@ const CURRI_DATA = {
         rows: [
           [
             { credit: 3, name: '의료IT융합프로젝트' },
-            { credit: 3, name: 'HIS개발' },
             { credit: 3, name: '센서네트워크응용' },
-            { credit: 3, name: '헬스디자인(캡스톤)' },
+            { credit: 3, name: '헬스디자인' },
           ],
           [
             { credit: 5, name: '현장실무(인턴십)' },
@@ -268,18 +267,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const bodyHTML = `
   <div class="curri-detail-body">
     ${groups
-      .map((g) => {
-        // rows 안에 있는 과목들을 한 덩어리로 합치기
-        const flat = g.rows.flat();
-        return `
+      .map(
+        (g) => `
           <div class="curri-block">
             <div class="curri-line"></div>
-            <div class="subject-row">
-              ${flat.map(subjectItemHtml).join('')}
-            </div>
+            ${g.rows
+              .map(
+                (row) => `
+                  <div class="subject-row">
+                    ${row.map(subjectItemHtml).join('')}
+                  </div>
+                `
+              )
+              .join('')}
           </div>
-        `;
-      })
+        `
+      )
       .join('')}
     <div class="curri-line"></div>
   </div>

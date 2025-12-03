@@ -301,7 +301,7 @@ body {
 
 /* 실제 커리큘럼 내용(나중용) */
 .curri-content {
-  margin-top: 12px;
+  margin-top: -10px;
 }
 
 /* === 의료IT 커리큘럼 버튼 === */
@@ -316,7 +316,7 @@ body {
 
 .curri-btn {
   width: 100%;
-  height: 70px;
+  height: 65px;
   max-width: none;
   padding: 16px 20px;
   border: none;
@@ -341,8 +341,6 @@ body {
 }
 
 /* ===== 전공 상세 화면 ===== */
-
-/* 상단 큰 박스 (배경: #f7f9fe, 글자: #0e2a55) */
 .curri-head {
   background: #f7f9fe;
   color: #0e2a55;
@@ -352,6 +350,7 @@ body {
   align-items: center;
   justify-content: center;
   position: relative;
+  height: 65px;
 }
 
 .curri-head-title {
@@ -383,16 +382,17 @@ body {
 .curri-line {
   height: 1px;
   background: #d8dce9;
-  margin: 32px 0;
+  margin-bottom: 30px;
 }
 
 /* 과목 두 개 나란히 */
 .subject-row {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
-  gap: 16px 32px;
+  gap: 16px 15px;
   align-items: center;
+  overflow: hidden;
 }
 
 /* 과목 박스 */
@@ -402,10 +402,11 @@ body {
   background: #f7f9fe;
   border-radius: 4px;
   border: 1px solid #c4d4eb;
-  padding: 6px 14px 6px 6px;
+  padding: 4px 7px 4px 7px;
   color: #0e2a55;
-  font-size: 13px;
+  font-size: 12px;
   flex: 0 0 auto;
+  white-space: nowrap;
 }
 
 /* 왼쪽 동그라미(학점) */
@@ -418,22 +419,23 @@ body {
   border-radius: 50%;
   border: 1px solid #0e2a55;
   background: #ffffff;
-  font-size: 12.5px;
+  font-size: 13px;
   margin-right: 8px;
 }
 
 .subject-name {
-  white-space: nowrap;
+  white-space: 6px;
 }
 
 /* 커리큘럼 블록 간 여백 */
 .curri-block {
-  margin: 32px 0;
+  margin-top: 10px;
+  margin-bottom: 30px;
 }
 
 /* 한 블록 안에서 여러 줄일 때 줄 사이 간격 */
 .curri-block .subject-row + .subject-row {
-  margin-top: 14px;
+  margin-top: 13px;
 }
 
 /* 뒤로가기 버튼 */
@@ -498,5 +500,16 @@ body {
   }
   .calc-row {
     grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 520px) {
+  .subject-row {
+    flex-wrap: wrap; /* 좁을 땐 줄바꿈 허용 */
+    justify-content: center; /* 가운데 정렬 유지 */
+  }
+
+  .subject-item {
+    font-size: 12px; /* 글자 조금 줄이고 */
+    padding: 3px 10px 3px 3px; /* 패딩도 살짝 줄이기 */
   }
 }
