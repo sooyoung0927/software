@@ -195,10 +195,7 @@
     }
 
     // 그 외: 데모용 기본 응답
-    const fallback =
-      '지금은 백엔드 서버 없이 동작하는 데모 모드야.\n' +
-      '그래서 아직 등록되지 않은 질문에는 실제 AI 답변 대신, 네가 보낸 내용을 그대로 보여줄게.\n\n' +
-      `• 너의 메시지: "${userText}"`;
+    const fallback = '네트워크가 불안정합니다. 잠시 후 다시 시도해주세요.';
     return { text: fallback, html: false };
   }
 
