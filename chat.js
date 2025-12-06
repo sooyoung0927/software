@@ -145,7 +145,6 @@
   }
 
   // ===== 프론트 전용 "AI" 응답 (간단 Q&A 룰) =====
-  // 반환값: { text, html }  (html=true면 innerHTML로 렌더링)
   async function callAI(userText) {
     const q = (userText || '').trim();
     const norm = q.replace(/\s+/g, '').toLowerCase();
@@ -157,8 +156,9 @@
     if (
       norm === '안녕' ||
       norm === '안녕하세요' ||
-      norm.startsWith('안녕하') ||
-      norm.includes('안녕?')
+      norm.includes('안녕?') ||
+      norm === 'Hello' ||
+      norm === 'hello'
     ) {
       return {
         text: '안녕하세요. 무엇을 도와드릴까요?',
