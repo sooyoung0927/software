@@ -158,6 +158,22 @@ function init() {
     toast('저장되었습니다!');
     location.href = 'my.html';
   });
+  document.addEventListener('DOMContentLoaded', () => {
+    const deptInput = document.getElementById('department');
+
+    function updatePlaceholder() {
+      if (window.innerWidth <= 520) {
+        deptInput.placeholder =
+          '학과 또는 학부를 입력하세요 (학과/학부명만 작성)';
+      } else {
+        deptInput.placeholder =
+          '학과 또는 학부를 입력하세요  (학과/학부명만 작성해 주세요)';
+      }
+    }
+
+    updatePlaceholder(); // 첫 로딩 시 적용
+    window.addEventListener('resize', updatePlaceholder); // 화면 회전/resize 시 적용
+  });
 }
 
 init();
