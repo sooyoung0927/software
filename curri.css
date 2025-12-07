@@ -513,3 +513,18 @@ body {
     padding: 3px 10px 3px 3px; /* 패딩도 살짝 줄이기 */
   }
 }
+@media (max-width: 1200px) {
+  .curri-detail-body {
+    max-height: calc(100vh - 140px); /* 헤더 높이 제외한 영역만큼 */
+    overflow-y: auto;
+    -ms-overflow-style: none; /* IE/Edge */
+    scrollbar-width: none; /* Firefox */
+    margin-bottom: 50px;
+    padding-bottom: 50px;
+    bottom: 50px;
+  }
+
+  .curri-detail-body::-webkit-scrollbar {
+    display: none; /* Chrome/Safari 스크롤바 숨김 */
+  }
+}

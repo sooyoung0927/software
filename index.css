@@ -27,7 +27,7 @@ body {
 
 /* 가운데 폰 화면 */
 .app {
-  width: 520px;
+  width: 100%;
   background: #fff;
   border-radius: 18px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
@@ -37,6 +37,7 @@ body {
   justify-self: center;
   justify-content: center;
   height: 100%;
+  margin: 0 auto;
 }
 
 .center {
@@ -267,12 +268,18 @@ body {
     display: none;
   }
   .app {
-    width: 520px; /* 중앙 화면 풀폭 */
+    width: 100%; /* 중앙 화면 풀폭 */
+    max-width: 520px;
     height: 100%;
     border-radius: 0;
     box-shadow: none;
   }
   .center {
     padding: 24px; /* 모바일 패딩만 유지 */
+  }
+}
+@media (max-width: 520px) {
+  .viewport {
+    padding: 0;
   }
 }
